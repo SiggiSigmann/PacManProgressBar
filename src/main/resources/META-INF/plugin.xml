@@ -20,8 +20,16 @@
   </change-notes>
   <depends>com.intellij.modules.platform</depends>
 
+  <actions>
+    <group id="PacManProgressBarTest.Menu" text="ProgressbarTest" description="Show progressbar for testing purpose">
+      <add-to-group group-id="MainMenu" anchor="last" />
+      <action id="Determinate" class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.actions.DeterminatePBAction" text="Determinate" description="Show determinate Progressbar for 5 Seconds"/>
+      <action id="Indeterminate" class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.actions.IndeterminatePBAction" text="Indeterminate" description="Show indeterminate Progressbar 5 Seconds"/>
+    </group>
+  </actions>
+
   <applicationListeners>
     <listener class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components.PacManComponent" topic="com.intellij.ide.ui.LafManagerListener"/>
-    <listener class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components.PacManComponent"/>
+    <listener class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components.PacManComponent" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
   </applicationListeners>
 </idea-plugin>
