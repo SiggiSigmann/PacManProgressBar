@@ -18,7 +18,7 @@ public class PacManIcons {
     static final String ORANGE_PATH = "/Orange.gif";
     private ImageIcon orangeGhost;
 
-    static final String PACMAN_PATH = "/OPac.gif";
+    static final String PACMAN_PATH = "/PacMan.gif";
     private ImageIcon pacMan;
 
     static final String PINK_PATH = "/Cherry.gif";

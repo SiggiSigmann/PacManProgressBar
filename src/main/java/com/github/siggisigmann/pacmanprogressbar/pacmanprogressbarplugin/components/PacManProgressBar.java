@@ -15,7 +15,15 @@ import java.awt.event.ComponentEvent;
 import java.awt.geom.AffineTransform;
 
 public class PacManProgressBar extends BasicProgressBarUI {
+
+    public static ComponentUI createUI(JComponent c) {
+        c.setBorder(JBUI.Borders.empty().asUIResource());
+        return new PacManProgressBar();
+    }
+
     private static int HIGHT = 20;
+
+    private PacManIcons icons = new PacManIcons();
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
@@ -41,11 +49,48 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private volatile int offset = 0;
 
     @Override
-    protected void paintIndeterminate(Graphics g2d, JComponent c) {
+    protected void paintIndeterminate(Graphics g, JComponent c) {
+        if (!(g instanceof Graphics2D)) return;
+        Graphics2D g2 = (Graphics2D) g;
+
     }
 
     @Override
     protected void paintDeterminate(Graphics g, JComponent c) {
+        if (!(g instanceof Graphics2D)) return;
+        Graphics2D g2 = (Graphics2D) g;
+
+        //check if normal progressbar
+        if (progressBar.getOrientation() != SwingConstants.HORIZONTAL || !c.getComponentOrientation().isLeftToRight()) {
+            super.paintDeterminate(g, c);
+            return;
+        }
+
+        //get default background color
+        Container parent = c.getParent();
+        Color defaultBackGroundColor = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
+
+        //calc values
+        int width = progressBar.getWidth();
+        int hight = progressBar.getPreferredSize().height;
+        Insets insets = progressBar.getInsets();
+        int barRectWidth = width - (insets.right + insets.left);
+        int barRectHeight = hight - (insets.top + insets.bottom);
+        int amountFull = getAmountFull(insets, barRectWidth, barRectHeight);
+        if (barRectWidth <= 0 || barRectHeight <= 0) return;
+
+        //draw background
+        g2.setColor(defaultBackGroundColor);
+        g2.fillRoundRect(0, 0, width, hight, 3,3);
+
+        //draw bar
+        g2.setColor(Color.BLACK);
+        g2.fillRoundRect(0, 0, amountFull, hight, 3,3);
+
+        //draw pacman
+        ImageIcon pacManIcon = icons.getPacMan();
+        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
+
     }
 
     @Override
