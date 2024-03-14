@@ -19,8 +19,9 @@
       ]]>
   </change-notes>
   <depends>com.intellij.modules.platform</depends>
-  
-  <extensions defaultExtensionNs="com.intellij">
 
-  </extensions>
+  <applicationListeners>
+    <listener class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components.PacManComponent" topic="com.intellij.ide.ui.LafManagerListener"/>
+    <listener class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components.PacManComponent"/>
+  </applicationListeners>
 </idea-plugin>
