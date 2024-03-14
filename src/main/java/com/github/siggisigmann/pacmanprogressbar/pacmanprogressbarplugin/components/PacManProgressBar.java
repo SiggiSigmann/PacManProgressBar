@@ -78,10 +78,16 @@ public class PacManProgressBar extends BasicProgressBarUI {
         int barRectHeight = hight - (insets.top + insets.bottom);
         int amountFull = getAmountFull(insets, barRectWidth, barRectHeight);
         if (barRectWidth <= 0 || barRectHeight <= 0) return;
+        final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
         //draw background
-        g2.setColor(defaultBackGroundColor);
+        g2.setColor(Color.BLACK);
         g2.fillRoundRect(0, 0, width, hight, 3,3);
+
+        g2.setColor(Color.WHITE);
+        for(int dotOffset = 0; dotOffset<width; dotOffset += 10){
+            g2.fillOval(dotOffset, (hight/2)-1, 2, 2);
+        }
 
         //draw bar
         g2.setColor(Color.BLACK);
@@ -91,6 +97,24 @@ public class PacManProgressBar extends BasicProgressBarUI {
         ImageIcon pacManIcon = icons.getPacMan();
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
 
+        //draw ghosts
+        ImageIcon pinkGhostIcon = icons.getPinkGhost();
+        int offset = amountFull - pacManIcon.getIconWidth() - 10 - pinkGhostIcon.getIconWidth();;
+        pinkGhostIcon.paintIcon(progressBar, g2, offset, 0);
+
+        ImageIcon blueGhostIcon = icons.getBlueGhost();
+        offset = offset - blueGhostIcon.getIconWidth();
+        blueGhostIcon.paintIcon(progressBar, g2, offset, 0);
+
+        ImageIcon redGhostIcon = icons.getRedGhost();
+        offset = offset - redGhostIcon.getIconWidth();
+        redGhostIcon.paintIcon(progressBar, g2, offset, 0);
+
+        ImageIcon orangeGhostIcon = icons.getOrangeGhost();
+        offset = offset - orangeGhostIcon.getIconWidth();
+        orangeGhostIcon.paintIcon(progressBar, g2, offset, 0);
+
+        config.restore();
     }
 
     @Override

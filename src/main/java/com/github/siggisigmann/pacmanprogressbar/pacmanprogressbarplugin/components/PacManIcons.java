@@ -21,10 +21,10 @@ public class PacManIcons {
     static final String PACMAN_PATH = "/PacMan.gif";
     private ImageIcon pacMan;
 
-    static final String PINK_PATH = "/Cherry.gif";
+    static final String PINK_PATH = "/Pink.gif";
     private ImageIcon pinkGhost;
 
-    static final String RED_PATH = "/Cherry.gif";
+    static final String RED_PATH = "/Red.gif";
     private ImageIcon redGhost;
 
     PacManIcons(){}
