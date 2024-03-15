@@ -27,6 +27,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
     }
 
     private static int HIGHT = 20;
+    private static int IMAGE_LENGTH = 95;
 
     private PacManIcons icons = new PacManIcons();
 
@@ -51,14 +52,56 @@ public class PacManProgressBar extends BasicProgressBarUI {
         });
     }
 
-    private volatile int offset = 0;
-
     @Override
     protected void paintIndeterminate(Graphics g, JComponent c) {
         if (!(g instanceof Graphics2D)) return;
         Graphics2D g2 = (Graphics2D) g;
 
+        //check if normal progressbar
+        if (progressBar.getOrientation() != SwingConstants.HORIZONTAL || !c.getComponentOrientation().isLeftToRight()) {
+            super.paintDeterminate(g, c);
+            return;
+        }
+
+        //get default background color
+        Container parent = c.getParent();
+        Color defaultBackGroundColor = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
+
+        //calc values
+        int width = progressBar.getWidth();
+        int hight = progressBar.getPreferredSize().height;
+        Insets insets = progressBar.getInsets();
+        int barRectWidth = width - (insets.right + insets.left);
+        int barRectHeight = hight - (insets.top + insets.bottom);
+        if (barRectWidth <= 0 || barRectHeight <= 0) return;
+        final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
+
+        Shape clip = new RoundRectangle2D.Double(0, 0, width - 1, hight- 1, 15, 15);
+        g2.clip(clip);
+
+        // background ##############################################################################################################
+        drawDottedBackground(g2, width, hight);
+
+        // foreground ##############################################################################################################
+        drawOverflowingPacManAndGhosts(g2, width);
+
+
+        config.restore();
     }
+
+    private volatile int offset = 0;
+    private void drawOverflowingPacManAndGhosts(Graphics2D g2, int width){
+        offset++;
+        if (offset >= width) {
+            offset = 0;
+        }
+        drawPacManAndGhosts(g2, offset + IMAGE_LENGTH);
+        if(offset >= (width - IMAGE_LENGTH)){
+            drawPacManAndGhosts(g2, (offset-width+IMAGE_LENGTH));
+        }
+    }
+
+
 
     @Override
     protected void paintDeterminate(Graphics g, JComponent c) {
@@ -97,9 +140,8 @@ public class PacManProgressBar extends BasicProgressBarUI {
         config.restore();
     }
 
-    private long lastDotMove = System.currentTimeMillis()+50;
-    private int movingDotOffset = 0;
-
+    private volatile long lastDotMove = System.currentTimeMillis();
+    private volatile int movingDotOffset = 0;
     private void drawDottedBackground(Graphics2D g2, int width, int hight){
         //draw background
         g2.setColor(Color.BLACK);
@@ -152,6 +194,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
             ghost.paintIcon(progressBar, g2, offset, 0);
         }
     }
+
 
     @Override
     protected int getBoxLength(int availableLength, int otherDimension) {
