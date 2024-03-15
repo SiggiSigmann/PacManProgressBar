@@ -83,8 +83,10 @@ public class PacManProgressBar extends BasicProgressBarUI {
         drawDottedBackground(g2, width, hight);
 
         // foreground ##############################################################################################################
-        drawOverflowingPacManAndGhosts(g2, width);
+        drawLodingBar(g2, hight, offset+IMAGE_LENGTH);
 
+        //drawOverflowingPacManAndGhosts(g2, width);
+        drawGameSimulation(g2, width);
 
         config.restore();
     }
@@ -101,7 +103,26 @@ public class PacManProgressBar extends BasicProgressBarUI {
         }
     }
 
+    private volatile boolean direction = true;
+    private volatile long lastPacManMove = System.currentTimeMillis();
+    private void drawGameSimulation(Graphics2D g2, int width){
+        if(System.currentTimeMillis() > lastPacManMove){
+            offset += direction? 1 : -1;
+            lastPacManMove = System.currentTimeMillis()+10;
+        }
 
+        if(direction){
+            direction = !(offset >= (width-IMAGE_LENGTH));
+            ImageIcon cherry = icons.getCherry();
+            cherry.paintIcon(progressBar, g2, width - cherry.getIconWidth(), 0);
+
+            drawPacManAndGhosts(g2, offset + IMAGE_LENGTH);
+        }else{
+            direction = (offset <= 0);
+            drawPacManAndDeadGhosts(g2, offset + IMAGE_LENGTH);
+        }
+
+    }
 
     @Override
     protected void paintDeterminate(Graphics g, JComponent c) {
@@ -178,7 +199,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
 
     private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
         //draw pacman
-        ImageIcon pacManIcon = icons.getPacMan();
+        ImageIcon pacManIcon = icons.getPacManRight();
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
 
         //draw ghosts
@@ -195,6 +216,24 @@ public class PacManProgressBar extends BasicProgressBarUI {
         }
     }
 
+    private void drawPacManAndDeadGhosts(Graphics2D g2, int amountFull){
+        //draw pacman
+        ImageIcon pacManIcon = icons.getPacManLeft();
+        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
+
+        //draw ghosts
+        ImageIcon ghosts[] = new ImageIcon[4];
+        ghosts[0] = icons.getDead1Ghost();
+        ghosts[1] = icons.getDead2Ghost();
+        ghosts[2] = icons.getDead3Ghost();
+        ghosts[3] = icons.getDead4Ghost();
+
+        int offset = amountFull - pacManIcon.getIconWidth() - 5;
+        for(ImageIcon ghost: ghosts){
+            offset -= ghost.getIconWidth()-2;
+            ghost.paintIcon(progressBar, g2, offset, 0);
+        }
+    }
 
     @Override
     protected int getBoxLength(int availableLength, int otherDimension) {
