@@ -1,4 +1,4 @@
-package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components;
+package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
 import javax.swing.*;
 import java.io.File;
@@ -27,40 +27,41 @@ public class PacManIcons {
     static final String RED_PATH = "/Red.gif";
     private ImageIcon redGhost;
 
-    PacManIcons(){}
+    PacManIcons(){
+        blueGhost = new ImageIcon(cleanURL(BLUE_PATH));
+        cherry = new ImageIcon(cleanURL(CHERRY_PATH));
+        deadGhost = new ImageIcon(cleanURL(DEAD_PATH));
+        orangeGhost = new ImageIcon(cleanURL(ORANGE_PATH));
+        pacMan = new ImageIcon(cleanURL(PACMAN_PATH));
+        pinkGhost = new ImageIcon(cleanURL(PINK_PATH));
+        redGhost = new ImageIcon(cleanURL(RED_PATH));
+    }
 
     public ImageIcon getBlueGhost(){
-        if(blueGhost == null) blueGhost = new ImageIcon(cleanURL(BLUE_PATH));
         return blueGhost;
     }
 
     public ImageIcon getCherry(){
-        if(cherry == null) cherry = new ImageIcon(cleanURL(CHERRY_PATH));
         return cherry;
     }
 
     public ImageIcon getDeadGhost(){
-        if(deadGhost == null) deadGhost = new ImageIcon(cleanURL(DEAD_PATH));
         return deadGhost;
     }
 
     public ImageIcon getOrangeGhost(){
-        if(orangeGhost == null) orangeGhost = new ImageIcon(cleanURL(ORANGE_PATH));
         return orangeGhost;
     }
 
     public ImageIcon getPacMan(){
-        if(pacMan == null) pacMan = new ImageIcon(cleanURL(PACMAN_PATH));
         return pacMan;
     }
 
     public ImageIcon getPinkGhost(){
-        if(pinkGhost == null) pinkGhost = new ImageIcon(cleanURL(PINK_PATH));
         return pinkGhost;
     }
 
     public ImageIcon getRedGhost(){
-        if(redGhost == null) redGhost = new ImageIcon(cleanURL(RED_PATH));
         return redGhost;
     }
 

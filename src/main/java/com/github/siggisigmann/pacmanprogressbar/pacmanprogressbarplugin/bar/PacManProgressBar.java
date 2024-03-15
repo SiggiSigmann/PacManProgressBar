@@ -1,18 +1,26 @@
-package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components;
+package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
 
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Insets;
+
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.SwingConstants;
 import javax.swing.plaf.ComponentUI;
-import javax.swing.plaf.basic.BasicGraphicsUtils;
 import javax.swing.plaf.basic.BasicProgressBarUI;
-import java.awt.*;
+
+
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.geom.AffineTransform;
 
 public class PacManProgressBar extends BasicProgressBarUI {
 
@@ -85,7 +93,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
         g2.fillRoundRect(0, 0, width, hight, 3,3);
 
         g2.setColor(Color.WHITE);
-        for(int dotOffset = 0; dotOffset<width; dotOffset += 10){
+        for(int dotOffset = 0; dotOffset<width; dotOffset += 5){
             g2.fillOval(dotOffset, (hight/2)-1, 2, 2);
         }
 
@@ -98,21 +106,17 @@ public class PacManProgressBar extends BasicProgressBarUI {
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
 
         //draw ghosts
-        ImageIcon pinkGhostIcon = icons.getPinkGhost();
-        int offset = amountFull - pacManIcon.getIconWidth() - 10 - pinkGhostIcon.getIconWidth();;
-        pinkGhostIcon.paintIcon(progressBar, g2, offset, 0);
+        ImageIcon ghosts[] = new ImageIcon[4];
+        ghosts[0] = icons.getPinkGhost();
+        ghosts[1] = icons.getBlueGhost();
+        ghosts[2] = icons.getRedGhost();
+        ghosts[3] = icons.getOrangeGhost();
 
-        ImageIcon blueGhostIcon = icons.getBlueGhost();
-        offset = offset - blueGhostIcon.getIconWidth();
-        blueGhostIcon.paintIcon(progressBar, g2, offset, 0);
-
-        ImageIcon redGhostIcon = icons.getRedGhost();
-        offset = offset - redGhostIcon.getIconWidth();
-        redGhostIcon.paintIcon(progressBar, g2, offset, 0);
-
-        ImageIcon orangeGhostIcon = icons.getOrangeGhost();
-        offset = offset - orangeGhostIcon.getIconWidth();
-        orangeGhostIcon.paintIcon(progressBar, g2, offset, 0);
+        int offset = amountFull - pacManIcon.getIconWidth() - 10;
+        for(ImageIcon ghost: ghosts){
+            offset -= ghost.getIconWidth();
+            ghost.paintIcon(progressBar, g2, offset, 0);
+        }
 
         config.restore();
     }
@@ -121,5 +125,4 @@ public class PacManProgressBar extends BasicProgressBarUI {
     protected int getBoxLength(int availableLength, int otherDimension) {
         return availableLength;
     }
-
 }

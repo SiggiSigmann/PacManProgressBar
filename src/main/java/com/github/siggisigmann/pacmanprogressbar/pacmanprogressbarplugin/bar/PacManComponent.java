@@ -1,4 +1,4 @@
-package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.components;
+package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
 import com.intellij.ide.ui.LafManager;
 import com.intellij.ide.ui.LafManagerListener;
