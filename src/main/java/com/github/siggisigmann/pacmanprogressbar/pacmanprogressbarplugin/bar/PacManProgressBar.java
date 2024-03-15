@@ -1,16 +1,12 @@
 package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
+import com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings.PacManProgressBarState;
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.UIUtil;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
+import java.awt.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComponent;
@@ -21,6 +17,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.awt.geom.RoundRectangle2D;
 
 public class PacManProgressBar extends BasicProgressBarUI {
 
@@ -88,19 +85,56 @@ public class PacManProgressBar extends BasicProgressBarUI {
         if (barRectWidth <= 0 || barRectHeight <= 0) return;
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
+        Shape clip = new RoundRectangle2D.Double(0, 0, width - 1, hight- 1, 15, 15);
+        g2.clip(clip);
+
+        drawDottedBackground(g2, width, hight);
+
+        drawLodingBar(g2, hight, amountFull);
+
+        drawPacManAndGhosts(g2, amountFull);
+
+        config.restore();
+    }
+
+    private long lastDotMove = System.currentTimeMillis()+50;
+    private int movingDotOffset = 0;
+
+    private void drawDottedBackground(Graphics2D g2, int width, int hight){
         //draw background
         g2.setColor(Color.BLACK);
         g2.fillRoundRect(0, 0, width, hight, 3,3);
 
+        boolean animatedDots = PacManProgressBarState.getInstance().isAnimatedDots();
+
         g2.setColor(Color.WHITE);
-        for(int dotOffset = 0; dotOffset<width; dotOffset += 5){
-            g2.fillOval(dotOffset, (hight/2)-1, 2, 2);
+        if(animatedDots){
+            int animationSpeed = PacManProgressBarState.getInstance().getAnimationSpeed();
+
+            if(System.currentTimeMillis() > lastDotMove){
+                lastDotMove = System.currentTimeMillis() + animationSpeed;
+                movingDotOffset++;
+                if(movingDotOffset >= 7){
+                    movingDotOffset = 0;
+                }
+            }
+
+            for(int dotOffset = 0; (dotOffset-movingDotOffset)<width; dotOffset += 7){
+                g2.fillOval(dotOffset-movingDotOffset, (hight/2)-1, 2, 2);
+            }
+        }else{
+            for(int dotOffset = 0; dotOffset<width; dotOffset += 7){
+                g2.fillOval(dotOffset, (hight/2)-1, 2, 2);
+            }
         }
+    }
 
-        //draw bar
+    private void drawLodingBar(Graphics2D g2, int hight, int amountFull){
         g2.setColor(Color.BLACK);
-        g2.fillRoundRect(0, 0, amountFull, hight, 3,3);
+        g2.fillRoundRect(0, 0, amountFull-10, hight, 3,3);
+    }
 
+    private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
         //draw pacman
         ImageIcon pacManIcon = icons.getPacMan();
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
@@ -112,13 +146,11 @@ public class PacManProgressBar extends BasicProgressBarUI {
         ghosts[2] = icons.getRedGhost();
         ghosts[3] = icons.getOrangeGhost();
 
-        int offset = amountFull - pacManIcon.getIconWidth() - 10;
+        int offset = amountFull - pacManIcon.getIconWidth() - 5;
         for(ImageIcon ghost: ghosts){
-            offset -= ghost.getIconWidth();
+            offset -= ghost.getIconWidth()-2;
             ghost.paintIcon(progressBar, g2, offset, 0);
         }
-
-        config.restore();
     }
 
     @Override
