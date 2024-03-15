@@ -21,7 +21,7 @@ public class IndeterminatePBAction extends AnAction {
                 for (int i = 0; i < 1000; i++) {
                     try {
                         // Simulate work
-                        Thread.sleep(5);
+                        Thread.sleep(10);
                     } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
