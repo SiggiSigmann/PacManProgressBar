@@ -38,6 +38,16 @@
     </group>
   </actions>
 
+  <extensions defaultExtensionNs="com.intellij">
+    <applicationService
+            serviceImplementation="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings.PacManProgressBarState" />
+    <applicationConfigurable
+            parentId="tools"
+            instance="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings.PacManProgressBarSettings"
+            id="org.intellij.sdk.settings.AppSettingsConfigurable"
+            displayName="PacManProgressBar Settings"/>
+  </extensions>
+
   <applicationListeners>
     <listener
       class="com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar.PacManComponent"
