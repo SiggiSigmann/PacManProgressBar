@@ -2,7 +2,6 @@ package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
 import com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings.PacManProgressBarState;
 import com.intellij.openapi.ui.GraphicsConfig;
-import com.intellij.ui.JBColor;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
 
@@ -78,13 +77,12 @@ public class PacManProgressBar extends BasicProgressBarUI {
         drawDottedBackground(g2, width, height);
 
         // foreground ##############################################################################################################
-        drawLoadingBar(g2, height, offset+IMAGE_LENGTH);
-
         switch(PacManProgressBarState.getInstance().getIndeterminateMode()){
             case PacManProgressBarState.OVERFLOW_MODE:
                 drawOverflowingPacManAndGhosts(g2, width);
                 break;
             case PacManProgressBarState.GAME_SIMULATION_MODE :
+                drawLoadingBar(g2, height, offset+IMAGE_LENGTH);
                 drawGameSimulation(g2, width);
                 break;
             default: drawOverflowingPacManAndGhosts(g2, width);
@@ -171,12 +169,12 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private int movingDotOffset = 0;
     private void drawDottedBackground(Graphics2D g2, int width, int height){
         //draw background
-        g2.setColor(JBColor.BLACK);
+        g2.setColor(Color.BLACK);
         g2.fillRoundRect(0, 0, width, height, 3,3);
 
         boolean animatedDots = PacManProgressBarState.getInstance().isAnimatedDots();
 
-        g2.setColor(JBColor.WHITE);
+        g2.setColor(Color.WHITE);
         if(animatedDots){
             int animationSpeed = PacManProgressBarState.getInstance().getDotAnimationSpeed();
 
@@ -199,7 +197,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
     }
 
     private void drawLoadingBar(Graphics2D g2, int height, int amountFull){
-        g2.setColor(JBColor.BLACK);
+        g2.setColor(Color.BLACK);
         g2.fillRoundRect(0, 0, amountFull-10, height, 3,3);
     }
 
