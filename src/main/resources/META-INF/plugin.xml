@@ -7,20 +7,46 @@
   <description>
     <![CDATA[
       <h1>PacManProgressBar</h1>
-      <p>Introducing PacManProgressBar, the dynamic replacement for your IntelliJ progress bar that injects a playful twist into your coding journey. Say goodbye to mundane progress bars and hello to a delightful Pac-Man adventure right in your IDE.</p>
+      <p>
+        Introducing PacManProgressBar, the dynamic replacement for your IntelliJ progress bar that injects a playful twist into your coding journey. Say
+        goodbye to mundane progress bars and hello to a delightful Pac-Man adventure right in your IDE.
+      </p>
 
       <h2>Deterministic Mode:</h2>
-      <p>In this mode, your progress is depicted by Pac-Man voraciously chomping through a path, relentlessly pursued by four menacing ghosts. As Pac-Man traverses the bar, inching closer to the end, your task progresses. Once Pac-Man reaches the end, your work is done.</p>
+      <p>
+        In this mode, your progress is depicted by Pac-Man voraciously chomping through a path, relentlessly pursued by four menacing ghosts. As Pac-Man
+        traverses the bar, inching closer to the end, your task progresses. Once Pac-Man reaches the end, your work is done.
+      </p>
+
+      <img src="https://raw.githubusercontent.com/SiggiSigmann/PacManProgressBar/main/readMeImages/DBarAD.gif" alt="Deterministic Mode with animated Dots" width="300">
+      <br>
+      <img src="https://raw.githubusercontent.com/SiggiSigmann/PacManProgressBar/main/readMeImages/DBarNAD.gif" alt="Deterministic Mode without animated Dots" width="300">
 
       <h2>Indeterministic Mode:</h2>
 
       <h3>Overflow Mode:</h3>
-      <p>Choose this mode for a simple yet captivating display. Pac-Man is chased by ghosts along a looped path. When Pac-Man reaches the end, it seamlessly overflows to the other side, creating a continuous loop symbolizing ongoing progress.</p>
+      <p>
+        Choose this mode for a simple yet captivating display. Pac-Man is chased by ghosts along a looped path. When Pac-Man reaches the end, it seamlessly
+        overflows to the other side, creating a continuous loop symbolizing ongoing progress.
+      </p>
+      <img src="https://raw.githubusercontent.com/SiggiSigmann/PacManProgressBar/main/readMeImages/IBarAD.gif" alt="Overflow Mode with animated Dots" width="300">
+      <br>
+      <img src="https://raw.githubusercontent.com/SiggiSigmann/PacManProgressBar/main/readMeImages/IBarNAD.gif" alt="Overflow Mode without animated Dots" width="300">
 
       <h3>Game Simulation Mode:</h3>
-      <p>Experience a nostalgic nod to the classic arcade game with this mode. As Pac-Man nears the end, a tantalizing cherry appears. If Pac-Man devours the cherry, the ghosts turn blue, symbolizing a momentary reversal of roles. Now, the ghosts are chased by Pac-Man until they reach the start point, at which they revert to their default color, resuming their pursuit of Pac-Man.</p>
+      <p>
+        Experience a nostalgic nod to the classic arcade game with this mode. As Pac-Man nears the end, a tantalizing cherry appears. If Pac-Man devours the
+        cherry, the ghosts turn blue, symbolizing a momentary reversal of roles. Now, the ghosts are chased by Pac-Man until they reach the start point, at
+        which they revert to their default color, resuming their pursuit of Pac-Man.
+      </p>
+      <img src="https://raw.githubusercontent.com/SiggiSigmann/PacManProgressBar/main/readMeImages/IBar2AD.gif" alt="Game Simulation Mode with animated Dots" width="300">
+      <br>
+      <img src="https://raw.githubusercontent.com/SiggiSigmann/PacManProgressBar/main/readMeImages/IBar2NAD.gif" alt="Game Simulation Mode without animated Dots" width="300">
 
-      <p>With PacManProgressBar, your progress is not only tracked but also transformed into an engaging and visually stimulating experience. Embrace a new level of productivity and enjoyment in your coding endeavors with this unique IntelliJ plugin.</p>
+      <p>
+        With PacManProgressBar, your progress is not only tracked but also transformed into an engaging and visually stimulating experience. Embrace a new
+        level of productivity and enjoyment in your coding endeavors with this unique IntelliJ plugin.
+      </p>
   ]]>
   </description>
   <change-notes>
