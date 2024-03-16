@@ -7,37 +7,37 @@ import java.net.URL;
 
 public class PacManIcons {
     static final String BLUE_PATH = "/Blue.gif";
-    private ImageIcon blueGhost;
+    private final ImageIcon blueGhost;
 
     static final String CHERRY_PATH = "/Cherry.gif";
-    private ImageIcon cherry;
+    private final ImageIcon cherry;
 
     static final String DEAD1_PATH = "/Dead1.gif";
-    private ImageIcon dead1Ghost;
+    private final ImageIcon dead1Ghost;
 
     static final String DEAD2_PATH = "/Dead2.gif";
-    private ImageIcon dead2Ghost;
+    private final ImageIcon dead2Ghost;
 
     static final String DEAD3_PATH = "/Dead3.gif";
-    private ImageIcon dead3Ghost;
+    private final ImageIcon dead3Ghost;
 
     static final String DEAD4_PATH = "/Dead4.gif";
-    private ImageIcon dead4Ghost;
+    private final ImageIcon dead4Ghost;
 
     static final String ORANGE_PATH = "/Orange.gif";
-    private ImageIcon orangeGhost;
+    private final ImageIcon orangeGhost;
 
-    static final String PACMANLEFT_PATH = "/PacManLeft.gif";
-    private ImageIcon pacManLeft;
+    static final String PACMAN_LEFT_PATH = "/PacManLeft.gif";
+    private final ImageIcon pacManLeft;
 
-    static final String PACMANRIGHT_PATH = "/PacManRight.gif";
-    private ImageIcon pacManRight;
+    static final String PACMAN_RIGHT_PATH = "/PacManRight.gif";
+    private final ImageIcon pacManRight;
 
     static final String PINK_PATH = "/Pink.gif";
-    private ImageIcon pinkGhost;
+    private final ImageIcon pinkGhost;
 
     static final String RED_PATH = "/Red.gif";
-    private ImageIcon redGhost;
+    private final ImageIcon redGhost;
 
     PacManIcons(){
         blueGhost = new ImageIcon(cleanURL(BLUE_PATH));
@@ -47,8 +47,8 @@ public class PacManIcons {
         dead3Ghost = new ImageIcon(cleanURL(DEAD3_PATH));
         dead4Ghost = new ImageIcon(cleanURL(DEAD4_PATH));
         orangeGhost = new ImageIcon(cleanURL(ORANGE_PATH));
-        pacManLeft = new ImageIcon(cleanURL(PACMANLEFT_PATH));
-        pacManRight = new ImageIcon(cleanURL(PACMANRIGHT_PATH));
+        pacManLeft = new ImageIcon(cleanURL(PACMAN_LEFT_PATH));
+        pacManRight = new ImageIcon(cleanURL(PACMAN_RIGHT_PATH));
         pinkGhost = new ImageIcon(cleanURL(PINK_PATH));
         redGhost = new ImageIcon(cleanURL(RED_PATH));
     }
@@ -103,7 +103,7 @@ public class PacManIcons {
             try {
                 url = new File(filePath).toURI().toURL();
             } catch (MalformedURLException e) {
-                e.printStackTrace();
+                System.out.println(e.getMessage());
             }
         }
         return url;

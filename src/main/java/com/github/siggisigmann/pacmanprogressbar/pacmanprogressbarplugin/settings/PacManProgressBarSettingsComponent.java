@@ -1,17 +1,15 @@
 package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings;
 
-import org.jetbrains.annotations.NotNull;
+import com.intellij.util.ui.JBUI;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class PacManProgressBarSettingsComponent {
 
-    private JPanel settingsPanel, dotAniamtionPanel, indeterministicModePanel, pacManAniamtionPanel;
-
+    private JPanel contentPanel, settingsPanel, dotAnimationPanel, indeterminateModePanel, pacManAnimationPanel;
     private JCheckBox animateBoxCB;
-    private JSlider dotAniamtionSpeedSilder, pacManAniamtionSpeedSilder;
-
+    private JSlider dotAnimationSpeedSlider, pacManAnimationSpeedSlider;
     private JRadioButton overFlowModeOption, gameSimulationModeOption;
 
     PacManProgressBarSettingsComponent(){
@@ -22,141 +20,137 @@ public class PacManProgressBarSettingsComponent {
     private void initComponents() {
         animateBoxCB = new JCheckBox("Animate dots");
 
-        dotAniamtionSpeedSilder = new JSlider(JSlider.HORIZONTAL, 0, 200, 1);
-        dotAniamtionSpeedSilder.setMajorTickSpacing(100); // Set major ticks every 100 units
-        dotAniamtionSpeedSilder.setMinorTickSpacing(10); // Set minor ticks every 10 units
-        dotAniamtionSpeedSilder.setPaintTicks(true);
-        dotAniamtionSpeedSilder.setPaintLabels(true);
+        dotAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 1);
+        dotAnimationSpeedSlider.setMajorTickSpacing(100); // Set major ticks every 100 units
+        dotAnimationSpeedSlider.setMinorTickSpacing(10); // Set minor ticks every 10 units
+        dotAnimationSpeedSlider.setPaintTicks(true);
+        dotAnimationSpeedSlider.setPaintLabels(true);
 
-        JLabel dotAniamtionLabel = new JLabel("Dot speed:");
-        dotAniamtionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel dotAnimationLabel = new JLabel("Dot speed:");
+        dotAnimationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        dotAniamtionPanel = new JPanel();
-        dotAniamtionPanel.setLayout(new BoxLayout(dotAniamtionPanel, BoxLayout.Y_AXIS));
-        dotAniamtionPanel.add(dotAniamtionLabel);
-        dotAniamtionPanel.add(dotAniamtionSpeedSilder);
+        dotAnimationPanel = new JPanel();
+        dotAnimationPanel.setLayout(new BoxLayout(dotAnimationPanel, BoxLayout.Y_AXIS));
+        dotAnimationPanel.add(dotAnimationLabel);
+        dotAnimationPanel.add(dotAnimationSpeedSlider);
 
-        pacManAniamtionSpeedSilder = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
-        pacManAniamtionSpeedSilder.setMajorTickSpacing(50); // Set major ticks every 100 units
-        pacManAniamtionSpeedSilder.setMinorTickSpacing(10); // Set minor ticks every 10 units
-        pacManAniamtionSpeedSilder.setPaintTicks(true);
-        pacManAniamtionSpeedSilder.setPaintLabels(true);
+        pacManAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
+        pacManAnimationSpeedSlider.setMajorTickSpacing(50); // Set major ticks every 100 units
+        pacManAnimationSpeedSlider.setMinorTickSpacing(10); // Set minor ticks every 10 units
+        pacManAnimationSpeedSlider.setPaintTicks(true);
+        pacManAnimationSpeedSlider.setPaintLabels(true);
 
-        JLabel pacManAniamtionLabel = new JLabel("PacMan speed:");
-        pacManAniamtionLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JLabel pacManAnimationLabel = new JLabel("PacMan speed:");
+        pacManAnimationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        pacManAniamtionPanel = new JPanel();
-        pacManAniamtionPanel.setLayout(new BoxLayout(pacManAniamtionPanel, BoxLayout.Y_AXIS));
-        pacManAniamtionPanel.add(pacManAniamtionLabel);
-        pacManAniamtionPanel.add(pacManAniamtionSpeedSilder);
+        pacManAnimationPanel = new JPanel();
+        pacManAnimationPanel.setLayout(new BoxLayout(pacManAnimationPanel, BoxLayout.Y_AXIS));
+        pacManAnimationPanel.add(pacManAnimationLabel);
+        pacManAnimationPanel.add(pacManAnimationSpeedSlider);
 
         overFlowModeOption = new JRadioButton("Overflow Mode");
         gameSimulationModeOption = new JRadioButton("GameSimulation Mode");
 
-        ButtonGroup indeterministicModeGroup = new ButtonGroup();
-        indeterministicModeGroup.add(overFlowModeOption);
-        indeterministicModeGroup.add(gameSimulationModeOption);
+        ButtonGroup indeterminateModeGroup = new ButtonGroup();
+        indeterminateModeGroup.add(overFlowModeOption);
+        indeterminateModeGroup.add(gameSimulationModeOption);
 
-        JLabel indeterministicModeLabel = new JLabel("Indeterministic Mode :");
+        JLabel indeterminateModeLabel = new JLabel("Indeterminate Mode :");
 
-        indeterministicModePanel = new JPanel();
-        indeterministicModePanel.setLayout(new BoxLayout(indeterministicModePanel, BoxLayout.Y_AXIS));
-        indeterministicModePanel.add(indeterministicModeLabel);
-        indeterministicModePanel.add(overFlowModeOption);
-        indeterministicModePanel.add(gameSimulationModeOption);
+        indeterminateModePanel = new JPanel();
+        indeterminateModePanel.setLayout(new BoxLayout(indeterminateModePanel, BoxLayout.Y_AXIS));
+        indeterminateModePanel.add(indeterminateModeLabel);
+        indeterminateModePanel.add(overFlowModeOption);
+        indeterminateModePanel.add(gameSimulationModeOption);
 
         settingsPanel = new JPanel();
         settingsPanel.setLayout(new GridBagLayout());
-        settingsPanel.setBackground(Color.BLUE);
     }
 
     private void layoutComponents() {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.insets = JBUI.insets(10);
 
         JLabel dotSettingsHeader = new JLabel("Dot Settings");
         dotSettingsHeader.setFont(new Font("Arial", Font.BOLD, 18));
+        gbc.anchor = GridBagConstraints.NORTH;
         settingsPanel.add(dotSettingsHeader, gbc);
         gbc.gridy++;
-        gbc.insets = new Insets(5, 10, 5, 10);
+        gbc.insets = JBUI.insets(5, 10); // Adding spacing between components
         settingsPanel.add(animateBoxCB, gbc);
         gbc.gridy++;
-        settingsPanel.add(dotAniamtionPanel, gbc);
-
-
-
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(10, 20, 10, 10); // Adjusting insets for the second column
-
-        JLabel indeterministicModeHeader = new JLabel("Indeterministic Mode");
-        indeterministicModeHeader.setFont(new Font("Arial", Font.BOLD, 18));
-        settingsPanel.add(indeterministicModeHeader, gbc);
-
-
-        gbc.gridy++;
-        gbc.insets = new Insets(5, 20, 5, 10); // Adding spacing between components
-        settingsPanel.add(indeterministicModePanel, gbc);
-
-        gbc.gridy++;
-        settingsPanel.add(pacManAniamtionPanel, gbc);
-
-
+        settingsPanel.add(dotAnimationPanel, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.gridheight = 3; // Make the separator span multiple rows
+        gbc.gridheight = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.insets = new Insets(10, 0, 0, 0); // Adjusting insets for the separator
+        gbc.insets = JBUI.insetsTop(10);
         JSeparator separator = new JSeparator(JSeparator.VERTICAL);
-        separator.setForeground(settingsPanel.getForeground()); // Set separator color to black
+        separator.setForeground(settingsPanel.getForeground());
         settingsPanel.add(separator, gbc);
+
+        gbc.gridx = 2;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.insets = JBUI.insets(10, 20, 10, 10);
+
+        JLabel indeterminateModeHeader = new JLabel("Indeterminate Mode");
+        indeterminateModeHeader.setFont(new Font("Arial", Font.BOLD, 18));
+        gbc.anchor = GridBagConstraints.NORTH;
+        settingsPanel.add(indeterminateModeHeader, gbc);
+
+        gbc.gridy++;
+        gbc.insets = JBUI.insets(5, 20, 5, 10); // Adding spacing between components
+        settingsPanel.add(indeterminateModePanel, gbc);
+
+        gbc.gridy++;
+        settingsPanel.add(pacManAnimationPanel, gbc);
+
+        contentPanel = new JPanel();
+        contentPanel.add(settingsPanel);
     }
 
 
     public JPanel getPanel() {
-        return settingsPanel;
+        return contentPanel;
     }
 
-    @NotNull
     public boolean isAnimatedDots() {
         return animateBoxCB.isSelected();
     }
 
-    public void setAnimatedDots(@NotNull Boolean isAnimatedDots) {
+    public void setAnimatedDots(Boolean isAnimatedDots) {
         animateBoxCB.setSelected(isAnimatedDots);
     }
 
-    @NotNull
     public int getDotAnimationSpeed() {
-        int value = dotAniamtionSpeedSilder.getValue();
+        int value = dotAnimationSpeedSlider.getValue();
         return value == 0 ? 1: value;
     }
 
-    public void setDotAnimationSpeed(@NotNull int value) {
-        dotAniamtionSpeedSilder.setValue(value);
+    public void setDotAnimationSpeed(int value) {
+        dotAnimationSpeedSlider.setValue(value);
     }
 
-    @NotNull
     public int getPacManAnimationSpeed() {
-        int value = pacManAniamtionSpeedSilder.getValue();
+        int value = pacManAnimationSpeedSlider.getValue();
         return value == 0 ? 1: value;
     }
 
-    public void setPacManAnimationSpeed(@NotNull int value) {
-        pacManAniamtionSpeedSilder.setValue(value);
+    public void setPacManAnimationSpeed(int value) {
+        pacManAnimationSpeedSlider.setValue(value);
     }
 
-    @NotNull
     public int getIndeterminateMode() {
         if(overFlowModeOption.isSelected()) return PacManProgressBarState.OVERFLOW_MODE;
         if(gameSimulationModeOption.isSelected()) return PacManProgressBarState.GAME_SIMULATION_MODE;
         return PacManProgressBarState.OVERFLOW_MODE;
     }
 
-    public void setIndeterminateMode(@NotNull int value) {
+    public void setIndeterminateMode(int value) {
         overFlowModeOption.setSelected(false);
         gameSimulationModeOption.setSelected(false);
 

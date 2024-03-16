@@ -1,15 +1,27 @@
 <idea-plugin>
-  <id>com.github.siggisigmann.PacManProgressBar.PacManProgressBarPlugin</id>
-  <name>PacManProgressBar</name>g
+  <id>com.github.siggisigmann.PacManProgressBar.PacManProgressBar</id>
+  <name>PacManProgressBar</name>
   <version>1.0</version>
   <vendor email="tobias.sigmann@gmail.com" url="https://github.com/SiggiSigmann">Tobias Sigmann</vendor>
 
   <description>
     <![CDATA[
-        <p>
-          This Plugin ads a PacManProgressBar to your Intellij. Ideal for all PacMan fans.
-        </p>
-      ]]>
+      <h1>PacManProgressBar</h1>
+      <p>Introducing PacManProgressBar, the dynamic replacement for your IntelliJ progress bar that injects a playful twist into your coding journey. Say goodbye to mundane progress bars and hello to a delightful Pac-Man adventure right in your IDE.</p>
+
+      <h2>Deterministic Mode:</h2>
+      <p>In this mode, your progress is depicted by Pac-Man voraciously chomping through a path, relentlessly pursued by four menacing ghosts. As Pac-Man traverses the bar, inching closer to the end, your task progresses. Once Pac-Man reaches the end, your work is done.</p>
+
+      <h2>Indeterministic Mode:</h2>
+
+      <h3>Overflow Mode:</h3>
+      <p>Choose this mode for a simple yet captivating display. Pac-Man is chased by ghosts along a looped path. When Pac-Man reaches the end, it seamlessly overflows to the other side, creating a continuous loop symbolizing ongoing progress.</p>
+
+      <h3>Game Simulation Mode:</h3>
+      <p>Experience a nostalgic nod to the classic arcade game with this mode. As Pac-Man nears the end, a tantalizing cherry appears. If Pac-Man devours the cherry, the ghosts turn blue, symbolizing a momentary reversal of roles. Now, the ghosts are chased by Pac-Man until they reach the start point, at which they revert to their default color, resuming their pursuit of Pac-Man.</p>
+
+      <p>With PacManProgressBar, your progress is not only tracked but also transformed into an engaging and visually stimulating experience. Embrace a new level of productivity and enjoyment in your coding endeavors with this unique IntelliJ plugin.</p>
+  ]]>
   </description>
   <change-notes>
     <![CDATA[
@@ -20,7 +32,7 @@
   </change-notes>
   <depends>com.intellij.modules.platform</depends>
 
-  <actions>
+  <!--<actions>
     <group id="PacManProgressBarTest.Menu" text="ProgressbarTest" description="Show progressbar for testing purpose">
       <add-to-group group-id="MainMenu" anchor="last" />
       <action
@@ -36,7 +48,7 @@
         description="Show indeterminate Progressbar 5 Seconds"
       />
     </group>
-  </actions>
+  </actions>-->
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationService

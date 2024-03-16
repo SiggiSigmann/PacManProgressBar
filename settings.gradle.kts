@@ -5,4 +5,4 @@ pluginManagement {
     }
 }
 
-rootProject.name = "PacManProgressBarPlugin"
+rootProject.name = "PacManProgressBar"

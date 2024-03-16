@@ -5,15 +5,16 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.progress.ProgressIndicator;
 import com.intellij.openapi.progress.Task;
 import com.intellij.openapi.project.Project;
+import org.jetbrains.annotations.NotNull;
 
 public class IndeterminatePBAction extends AnAction {
     @Override
     public void actionPerformed(AnActionEvent e) {
         Project project = e.getProject();
 
-        new Task.Backgroundable(project, "Task with Progress Bar") {
+        new Task.Backgroundable(project, "Task with progress bar") {
             @Override
-            public void run(ProgressIndicator indicator) {
+            public void run(@NotNull ProgressIndicator indicator) {
                 indicator.setIndeterminate(true);
                 indicator.setText("Working...");
 
@@ -23,7 +24,7 @@ public class IndeterminatePBAction extends AnAction {
                         // Simulate work
                         Thread.sleep(10);
                     } catch (InterruptedException ex) {
-                        ex.printStackTrace();
+                        System.out.println(ex.getMessage());
                     }
                 }
 

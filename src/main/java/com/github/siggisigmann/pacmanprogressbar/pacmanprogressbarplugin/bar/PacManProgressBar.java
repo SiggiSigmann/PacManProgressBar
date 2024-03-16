@@ -2,9 +2,9 @@ package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
 import com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings.PacManProgressBarState;
 import com.intellij.openapi.ui.GraphicsConfig;
+import com.intellij.ui.JBColor;
 import com.intellij.util.ui.GraphicsUtil;
 import com.intellij.util.ui.JBUI;
-import com.intellij.util.ui.UIUtil;
 
 import java.awt.*;
 
@@ -26,14 +26,14 @@ public class PacManProgressBar extends BasicProgressBarUI {
         return new PacManProgressBar();
     }
 
-    private static int HIGHT = 20;
-    private static int IMAGE_LENGTH = 95;
+    private static final int HEIGHT = 20;
+    private static final int IMAGE_LENGTH = 95;
 
-    private PacManIcons icons = new PacManIcons();
+    private final PacManIcons icons = new PacManIcons();
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
-        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(HIGHT));
+        return new Dimension(super.getPreferredSize(c).width, JBUI.scale(HEIGHT));
     }
 
     @Override
@@ -62,28 +62,23 @@ public class PacManProgressBar extends BasicProgressBarUI {
             super.paintDeterminate(g, c);
             return;
         }
-
-        //get default background color
-        Container parent = c.getParent();
-        Color defaultBackGroundColor = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
-
         //calc values
         int width = progressBar.getWidth();
-        int hight = progressBar.getPreferredSize().height;
+        int height = progressBar.getPreferredSize().height;
         Insets insets = progressBar.getInsets();
         int barRectWidth = width - (insets.right + insets.left);
-        int barRectHeight = hight - (insets.top + insets.bottom);
+        int barRectHeight = height - (insets.top + insets.bottom);
         if (barRectWidth <= 0 || barRectHeight <= 0) return;
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
-        Shape clip = new RoundRectangle2D.Double(0, 0, width - 1, hight- 1, 15, 15);
+        Shape clip = new RoundRectangle2D.Double(0, 0, width - 1, height- 1, 15, 15);
         g2.clip(clip);
 
         // background ##############################################################################################################
-        drawDottedBackground(g2, width, hight);
+        drawDottedBackground(g2, width, height);
 
         // foreground ##############################################################################################################
-        drawLodingBar(g2, hight, offset+IMAGE_LENGTH);
+        drawLoadingBar(g2, height, offset+IMAGE_LENGTH);
 
         switch(PacManProgressBarState.getInstance().getIndeterminateMode()){
             case PacManProgressBarState.OVERFLOW_MODE:
@@ -98,7 +93,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
         config.restore();
     }
 
-    private volatile int offset = 0;
+    private int offset = 0;
     private void drawOverflowingPacManAndGhosts(Graphics2D g2, int width){
         if(System.currentTimeMillis() > lastPacManMove){
             offset++;
@@ -115,8 +110,8 @@ public class PacManProgressBar extends BasicProgressBarUI {
         }
     }
 
-    private volatile boolean direction = true;
-    private volatile long lastPacManMove = System.currentTimeMillis();
+    private boolean direction = true;
+    private long lastPacManMove = System.currentTimeMillis();
     private void drawGameSimulation(Graphics2D g2, int width){
         if(System.currentTimeMillis() > lastPacManMove){
             offset += direction? 1 : -1;
@@ -149,42 +144,39 @@ public class PacManProgressBar extends BasicProgressBarUI {
             return;
         }
 
-        //get default background color
-        Container parent = c.getParent();
-        Color defaultBackGroundColor = parent != null ? parent.getBackground() : UIUtil.getPanelBackground();
-
         //calc values
         int width = progressBar.getWidth();
-        int hight = progressBar.getPreferredSize().height;
+        int height = progressBar.getPreferredSize().height;
         Insets insets = progressBar.getInsets();
         int barRectWidth = width - (insets.right + insets.left);
-        int barRectHeight = hight - (insets.top + insets.bottom);
+        int barRectHeight = height - (insets.top + insets.bottom);
         int amountFull = getAmountFull(insets, barRectWidth, barRectHeight);
         if (barRectWidth <= 0 || barRectHeight <= 0) return;
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
-        Shape clip = new RoundRectangle2D.Double(0, 0, width - 1, hight- 1, 15, 15);
+        Shape clip = new RoundRectangle2D.Double(0, 0, width - 1, height- 1, 15, 15);
         g2.clip(clip);
 
-        drawDottedBackground(g2, width, hight);
+        // background ##############################################################################################################
+        drawDottedBackground(g2, width, height);
 
-        drawLodingBar(g2, hight, amountFull);
+        drawLoadingBar(g2, height, amountFull);
 
         drawPacManAndGhosts(g2, amountFull);
 
         config.restore();
     }
 
-    private volatile long lastDotMove = System.currentTimeMillis();
-    private volatile int movingDotOffset = 0;
-    private void drawDottedBackground(Graphics2D g2, int width, int hight){
+    private long lastDotMove = System.currentTimeMillis();
+    private int movingDotOffset = 0;
+    private void drawDottedBackground(Graphics2D g2, int width, int height){
         //draw background
-        g2.setColor(Color.BLACK);
-        g2.fillRoundRect(0, 0, width, hight, 3,3);
+        g2.setColor(JBColor.BLACK);
+        g2.fillRoundRect(0, 0, width, height, 3,3);
 
         boolean animatedDots = PacManProgressBarState.getInstance().isAnimatedDots();
 
-        g2.setColor(Color.WHITE);
+        g2.setColor(JBColor.WHITE);
         if(animatedDots){
             int animationSpeed = PacManProgressBarState.getInstance().getDotAnimationSpeed();
 
@@ -197,18 +189,18 @@ public class PacManProgressBar extends BasicProgressBarUI {
             }
 
             for(int dotOffset = 0; (dotOffset-movingDotOffset)<width; dotOffset += 7){
-                g2.fillOval(dotOffset-movingDotOffset, (hight/2)-1, 2, 2);
+                g2.fillOval(dotOffset-movingDotOffset, (height/2)-1, 2, 2);
             }
         }else{
             for(int dotOffset = 0; dotOffset<width; dotOffset += 7){
-                g2.fillOval(dotOffset, (hight/2)-1, 2, 2);
+                g2.fillOval(dotOffset, (height/2)-1, 2, 2);
             }
         }
     }
 
-    private void drawLodingBar(Graphics2D g2, int hight, int amountFull){
-        g2.setColor(Color.BLACK);
-        g2.fillRoundRect(0, 0, amountFull-10, hight, 3,3);
+    private void drawLoadingBar(Graphics2D g2, int height, int amountFull){
+        g2.setColor(JBColor.BLACK);
+        g2.fillRoundRect(0, 0, amountFull-10, height, 3,3);
     }
 
     private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
@@ -217,7 +209,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
 
         //draw ghosts
-        ImageIcon ghosts[] = new ImageIcon[4];
+        ImageIcon[] ghosts = new ImageIcon[4];
         ghosts[0] = icons.getPinkGhost();
         ghosts[1] = icons.getBlueGhost();
         ghosts[2] = icons.getRedGhost();
@@ -236,7 +228,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
 
         //draw ghosts
-        ImageIcon ghosts[] = new ImageIcon[4];
+        ImageIcon[] ghosts = new ImageIcon[4];
         ghosts[0] = icons.getDead1Ghost();
         ghosts[1] = icons.getDead2Ghost();
         ghosts[2] = icons.getDead3Ghost();
