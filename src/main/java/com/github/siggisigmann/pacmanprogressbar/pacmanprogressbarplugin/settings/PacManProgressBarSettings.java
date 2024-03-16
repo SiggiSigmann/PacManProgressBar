@@ -25,24 +25,32 @@ public class PacManProgressBarSettings implements Configurable {
     @Override
     public boolean isModified() {
         PacManProgressBarState oldSettings = PacManProgressBarState.getInstance();
-        boolean isAnimatedDotsChanged = oldSettings.isAnimatedDots() != settingsComponent.isAnimatedDots();
-        boolean animationSpeedChange = oldSettings.getAnimationSpeed() != settingsComponent.getAnimationSpeed();
 
-        return isAnimatedDotsChanged || animationSpeedChange;
+        boolean isAnimatedDotsChanged = oldSettings.isAnimatedDots() != settingsComponent.isAnimatedDots();
+        boolean dotAnimationSpeedChange = oldSettings.getDotAnimationSpeed() != settingsComponent.getDotAnimationSpeed();
+        boolean pacManAnimationSpeedChange = oldSettings.getPacManAnimationSpeed() != settingsComponent.getPacManAnimationSpeed();
+        boolean indeterminateModeChange = oldSettings.getIndeterminateMode() != settingsComponent.getIndeterminateMode();
+
+        return isAnimatedDotsChanged || dotAnimationSpeedChange || pacManAnimationSpeedChange || indeterminateModeChange ;
     }
 
     @Override
     public void apply() throws ConfigurationException {
         PacManProgressBarState settings = PacManProgressBarState.getInstance();
+
         settings.setAnimatedDots(settingsComponent.isAnimatedDots());
-        settings.setAnimationSpeed(settingsComponent.getAnimationSpeed());
+        settings.setDotAnimationSpeed(settingsComponent.getDotAnimationSpeed());
+        settings.setPacManAnimationSpeed(settingsComponent.getPacManAnimationSpeed());
+        settings.setIndeterminateMode(settingsComponent.getIndeterminateMode());
     }
 
     @Override
     public void reset() {
-        PacManProgressBarState settings = PacManProgressBarState.getDefault();
+        PacManProgressBarState settings = PacManProgressBarState.getInstance();
 
         settingsComponent.setAnimatedDots(settings.isAnimatedDots());
-        settingsComponent.setAnimationSpeed(settings.getAnimationSpeed());
+        settingsComponent.setDotAnimationSpeed(settings.getDotAnimationSpeed());
+        settingsComponent.setPacManAnimationSpeed(settings.getPacManAnimationSpeed());
+        settingsComponent.setIndeterminateMode(settings.getIndeterminateMode());
     }
 }

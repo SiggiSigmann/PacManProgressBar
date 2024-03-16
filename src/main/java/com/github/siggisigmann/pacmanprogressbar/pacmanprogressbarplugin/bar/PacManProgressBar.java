@@ -85,15 +85,27 @@ public class PacManProgressBar extends BasicProgressBarUI {
         // foreground ##############################################################################################################
         drawLodingBar(g2, hight, offset+IMAGE_LENGTH);
 
-        //drawOverflowingPacManAndGhosts(g2, width);
-        drawGameSimulation(g2, width);
+        switch(PacManProgressBarState.getInstance().getIndeterminateMode()){
+            case PacManProgressBarState.OVERFLOW_MODE:
+                drawOverflowingPacManAndGhosts(g2, width);
+                break;
+            case PacManProgressBarState.GAME_SIMULATION_MODE :
+                drawGameSimulation(g2, width);
+                break;
+            default: drawOverflowingPacManAndGhosts(g2, width);
+        }
 
         config.restore();
     }
 
     private volatile int offset = 0;
     private void drawOverflowingPacManAndGhosts(Graphics2D g2, int width){
-        offset++;
+        if(System.currentTimeMillis() > lastPacManMove){
+            offset++;
+
+            int animationSpeed = PacManProgressBarState.getInstance().getPacManAnimationSpeed();
+            lastPacManMove = System.currentTimeMillis() + animationSpeed;
+        }
         if (offset >= width) {
             offset = 0;
         }
@@ -108,7 +120,9 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private void drawGameSimulation(Graphics2D g2, int width){
         if(System.currentTimeMillis() > lastPacManMove){
             offset += direction? 1 : -1;
-            lastPacManMove = System.currentTimeMillis()+10;
+
+            int animationSpeed = PacManProgressBarState.getInstance().getPacManAnimationSpeed();
+            lastPacManMove = System.currentTimeMillis() + animationSpeed;
         }
 
         if(direction){
@@ -172,7 +186,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
 
         g2.setColor(Color.WHITE);
         if(animatedDots){
-            int animationSpeed = PacManProgressBarState.getInstance().getAnimationSpeed();
+            int animationSpeed = PacManProgressBarState.getInstance().getDotAnimationSpeed();
 
             if(System.currentTimeMillis() > lastDotMove){
                 lastDotMove = System.currentTimeMillis() + animationSpeed;

@@ -22,15 +22,31 @@ public class PacManProgressBarState implements PersistentStateComponent<PacManPr
         this.animatedDots = animateDots;
     }
 
-    private int animationSpeed = 50;
-    public int getAnimationSpeed() {
-        return animationSpeed;
+    private int dotAnimationSpeed = 50;
+    public int getDotAnimationSpeed() {
+        return dotAnimationSpeed;
     }
-    public void setAnimationSpeed(int animationSpeed) {
-        this.animationSpeed = animationSpeed;
+    public void setDotAnimationSpeed(int animationSpeed) {
+        this.dotAnimationSpeed = animationSpeed;
     }
 
+    private int indeterminateMode = 0;
+    public static final int OVERFLOW_MODE = 0;
+    public static final int GAME_SIMULATION_MODE = 1;
+    public int getIndeterminateMode() {
+        return indeterminateMode;
+    }
+    public void setIndeterminateMode(int indeterminateMode) {
+        this.indeterminateMode = indeterminateMode;
+    }
 
+    private int pacManAnimationSpeed = 20;
+    public int getPacManAnimationSpeed() {
+        return pacManAnimationSpeed;
+    }
+    public void setPacManAnimationSpeed(int animationSpeed) {
+        this.pacManAnimationSpeed = animationSpeed;
+    }
 
 
 
@@ -42,7 +58,9 @@ public class PacManProgressBarState implements PersistentStateComponent<PacManPr
     public static PacManProgressBarState getDefault(){
         PacManProgressBarState defaultSettings = new PacManProgressBarState();
         defaultSettings.setAnimatedDots(true);
-
+        defaultSettings.setDotAnimationSpeed(50);
+        defaultSettings.setIndeterminateMode(0);
+        defaultSettings.setPacManAnimationSpeed(20);
         return defaultSettings;
     }
 
