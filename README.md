@@ -1,4 +1,9 @@
 # PacManProgressBar for IntelliJ
+
+![Downloads](https://img.shields.io/jetbrains/plugin/d/23967)
+![Rating](https://img.shields.io/jetbrains/plugin/r/rating/23967)
+![Version](https://img.shields.io/jetbrains/plugin/v/23967)
+
 Add a playful twist to your IntelliJ progress bar with PacManProgressBar. Watch Pac-Man navigate the bar, chased by ghosts, for a unique coding experience.
 
 ## Description

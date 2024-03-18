@@ -4,6 +4,7 @@ import com.intellij.util.ui.JBUI;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Hashtable;
 
 public class PacManProgressBarSettingsComponent {
 
@@ -21,10 +22,12 @@ public class PacManProgressBarSettingsComponent {
         animateBoxCB = new JCheckBox("Animate dots");
 
         dotAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 1);
-        dotAnimationSpeedSlider.setMajorTickSpacing(100); // Set major ticks every 100 units
-        dotAnimationSpeedSlider.setMinorTickSpacing(10); // Set minor ticks every 10 units
+        dotAnimationSpeedSlider.setMajorTickSpacing(100);
+        dotAnimationSpeedSlider.setMinorTickSpacing(10);
         dotAnimationSpeedSlider.setPaintTicks(true);
         dotAnimationSpeedSlider.setPaintLabels(true);
+        dotAnimationSpeedSlider.setLabelTable(getLabelTable(dotAnimationSpeedSlider.getMinimum(), dotAnimationSpeedSlider.getMaximum()));
+
 
         JLabel dotAnimationLabel = new JLabel("Dot speed:");
         dotAnimationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -35,10 +38,11 @@ public class PacManProgressBarSettingsComponent {
         dotAnimationPanel.add(dotAnimationSpeedSlider);
 
         pacManAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
-        pacManAnimationSpeedSlider.setMajorTickSpacing(50); // Set major ticks every 100 units
-        pacManAnimationSpeedSlider.setMinorTickSpacing(10); // Set minor ticks every 10 units
+        pacManAnimationSpeedSlider.setMajorTickSpacing(50);
+        pacManAnimationSpeedSlider.setMinorTickSpacing(10);
         pacManAnimationSpeedSlider.setPaintTicks(true);
         pacManAnimationSpeedSlider.setPaintLabels(true);
+        pacManAnimationSpeedSlider.setLabelTable(getLabelTable(pacManAnimationSpeedSlider.getMinimum(), pacManAnimationSpeedSlider.getMaximum()));
 
         JLabel pacManAnimationLabel = new JLabel("PacMan speed:");
         pacManAnimationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -164,6 +168,13 @@ public class PacManProgressBarSettingsComponent {
             default:
                 overFlowModeOption.setSelected(true);
         }
+    }
+
+    private static Hashtable<Integer, JLabel> getLabelTable(int min, int max) {
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
+        labelTable.put(min, new JLabel("fast"));
+        labelTable.put(max, new JLabel("slow"));
+        return labelTable;
     }
 
 }
