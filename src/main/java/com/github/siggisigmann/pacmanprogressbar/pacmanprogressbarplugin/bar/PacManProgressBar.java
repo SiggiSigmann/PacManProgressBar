@@ -29,6 +29,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private static final int IMAGE_LENGTH = 95;
 
     private final PacManIcons icons = new PacManIcons();
+    private final int pacManWidth = icons.getPacManLeft().getIconWidth();
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
@@ -148,7 +149,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
         Insets insets = progressBar.getInsets();
         int barRectWidth = width - (insets.right + insets.left);
         int barRectHeight = height - (insets.top + insets.bottom);
-        int amountFull = getAmountFull(insets, barRectWidth, barRectHeight);
+        int amountFull = getAmountFull(insets, barRectWidth - pacManWidth, barRectHeight);
         if (barRectWidth <= 0 || barRectHeight <= 0) return;
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
@@ -158,9 +159,9 @@ public class PacManProgressBar extends BasicProgressBarUI {
         // background ##############################################################################################################
         drawDottedBackground(g2, width, height);
 
-        drawLoadingBar(g2, height, amountFull);
+        drawLoadingBar(g2, height, amountFull+ pacManWidth);
 
-        drawPacManAndGhosts(g2, amountFull);
+        drawPacManAndGhosts(g2, amountFull+ pacManWidth);
 
         config.restore();
     }
@@ -204,7 +205,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
         //draw pacman
         ImageIcon pacManIcon = icons.getPacManRight();
-        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
+        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManWidth, 0);
 
         //draw ghosts
         ImageIcon[] ghosts = new ImageIcon[4];

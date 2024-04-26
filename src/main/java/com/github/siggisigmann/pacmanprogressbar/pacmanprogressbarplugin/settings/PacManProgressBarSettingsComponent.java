@@ -21,8 +21,8 @@ public class PacManProgressBarSettingsComponent {
     private void initComponents() {
         animateBoxCB = new JCheckBox("Animate dots");
 
-        dotAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 200, 1);
-        dotAnimationSpeedSlider.setMajorTickSpacing(100);
+        dotAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 81, 40);
+        dotAnimationSpeedSlider.setMajorTickSpacing(40);
         dotAnimationSpeedSlider.setMinorTickSpacing(10);
         dotAnimationSpeedSlider.setPaintTicks(true);
         dotAnimationSpeedSlider.setPaintLabels(true);
@@ -37,8 +37,8 @@ public class PacManProgressBarSettingsComponent {
         dotAnimationPanel.add(dotAnimationLabel);
         dotAnimationPanel.add(dotAnimationSpeedSlider);
 
-        pacManAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 1);
-        pacManAnimationSpeedSlider.setMajorTickSpacing(50);
+        pacManAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 81, 40);
+        pacManAnimationSpeedSlider.setMajorTickSpacing(40);
         pacManAnimationSpeedSlider.setMinorTickSpacing(10);
         pacManAnimationSpeedSlider.setPaintTicks(true);
         pacManAnimationSpeedSlider.setPaintLabels(true);
@@ -131,21 +131,30 @@ public class PacManProgressBarSettingsComponent {
     }
 
     public int getDotAnimationSpeed() {
-        int value = dotAnimationSpeedSlider.getValue();
-        return value == 0 ? 1: value;
+        double value = ((double)dotAnimationSpeedSlider.getValue())/10.0;
+        return (int) Math.pow(2,value)+10;
     }
 
     public void setDotAnimationSpeed(int value) {
-        dotAnimationSpeedSlider.setValue(value);
+        double scaled = (double)value - 10.0;
+        double log2 = Math.log(scaled) / Math.log(2);
+        double res = log2 * 10;
+        if(res < 1) res = 1;
+        if(res > 80) res = 80;
+        dotAnimationSpeedSlider.setValue((int) res);
     }
 
     public int getPacManAnimationSpeed() {
-        int value = pacManAnimationSpeedSlider.getValue();
-        return value == 0 ? 1: value;
+        double value = ((double)pacManAnimationSpeedSlider.getValue())/10.0;
+        return (int) Math.pow(2,value);
     }
 
     public void setPacManAnimationSpeed(int value) {
-        pacManAnimationSpeedSlider.setValue(value);
+        double log2 = Math.log((double) value) / Math.log(2);
+        double res = log2 * 10;
+        if(res < 1) res = 1;
+        if(res > 80) res = 80;
+        pacManAnimationSpeedSlider.setValue((int) res);
     }
 
     public int getIndeterminateMode() {

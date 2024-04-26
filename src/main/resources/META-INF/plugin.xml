@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.github.siggisigmann.PacManProgressBar.PacManProgressBar</id>
   <name>PacManProgressBar</name>
-  <version>1.1</version>
+  <version>1.2</version>
   <vendor email="tobias.sigmann@gmail.com" url="https://github.com/SiggiSigmann">Tobias Sigmann</vendor>
   <idea-version since-build="213.*"/>
   <description>
@@ -37,7 +37,8 @@
   <change-notes>
     <![CDATA[
         <ul>
-          <li>Initial</li>
+          <li>1.1 Initial</li>
+          <li>1.2 Make the slider in settings smoother, and ensure that the determinate starts showing a Pacman icon now</li>
         </ul>
       ]]>
   </change-notes>
