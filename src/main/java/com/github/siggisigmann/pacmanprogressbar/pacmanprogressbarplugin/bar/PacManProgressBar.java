@@ -29,7 +29,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private static final int IMAGE_LENGTH = 95;
 
     private final PacManIcons icons = new PacManIcons();
-    private final int pacManWidth = icons.getPacManLeft().getIconWidth();
+    private final int pacManWidth = icons.getPacManLeft(0).getIconWidth();
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
@@ -144,12 +144,12 @@ public class PacManProgressBar extends BasicProgressBarUI {
         }
 
         //calc values
-        int width = progressBar.getWidth();
-        int height = progressBar.getPreferredSize().height;
-        Insets insets = progressBar.getInsets();
-        int barRectWidth = width - (insets.right + insets.left);
-        int barRectHeight = height - (insets.top + insets.bottom);
-        int amountFull = getAmountFull(insets, barRectWidth - pacManWidth, barRectHeight);
+        final int width = progressBar.getWidth();
+        final int height = progressBar.getPreferredSize().height;
+        final Insets insets = progressBar.getInsets();
+        final int barRectWidth = width - (insets.right + insets.left);
+        final int barRectHeight = height - (insets.top + insets.bottom);
+        final int amountFull = getAmountFull(insets, barRectWidth - pacManWidth, barRectHeight);
         if (barRectWidth <= 0 || barRectHeight <= 0) return;
         final GraphicsConfig config = GraphicsUtil.setupAAPainting(g);
 
@@ -204,7 +204,7 @@ public class PacManProgressBar extends BasicProgressBarUI {
 
     private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
         //draw pacman
-        ImageIcon pacManIcon = icons.getPacManRight();
+        ImageIcon pacManIcon = icons.getPacManRight(PacManProgressBarState.getInstance().getPacManStyle());
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManWidth, 0);
 
         //draw ghosts
@@ -223,8 +223,8 @@ public class PacManProgressBar extends BasicProgressBarUI {
 
     private void drawPacManAndDeadGhosts(Graphics2D g2, int amountFull){
         //draw pacman
-        ImageIcon pacManIcon = icons.getPacManLeft();
-        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManIcon.getIconWidth(), 0);
+        ImageIcon pacManIcon = icons.getPacManLeft(PacManProgressBarState.getInstance().getPacManStyle());
+        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManWidth, 0);
 
         //draw ghosts
         ImageIcon[] ghosts = new ImageIcon[4];

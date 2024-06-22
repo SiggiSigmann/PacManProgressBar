@@ -1,5 +1,6 @@
 package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings;
 
+import com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar.PacManIcons;
 import com.intellij.util.ui.JBUI;
 
 import javax.swing.*;
@@ -8,10 +9,13 @@ import java.util.Hashtable;
 
 public class PacManProgressBarSettingsComponent {
 
-    private JPanel contentPanel, settingsPanel, dotAnimationPanel, indeterminateModePanel, pacManAnimationPanel;
+    private JPanel contentPanel, settingsPanel, dotAnimationPanel, indeterminateModePanel, pacManAnimationPanel, pacManStylePanel;
     private JCheckBox animateBoxCB;
     private JSlider dotAnimationSpeedSlider, pacManAnimationSpeedSlider;
     private JRadioButton overFlowModeOption, gameSimulationModeOption;
+    private JRadioButton originalPacMan, missPacMan, ninjaPacMan;
+
+    private final PacManIcons icons = new PacManIcons();
 
     PacManProgressBarSettingsComponent(){
         initComponents();
@@ -19,6 +23,7 @@ public class PacManProgressBarSettingsComponent {
     }
 
     private void initComponents() {
+        // dot settings +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         animateBoxCB = new JCheckBox("Animate dots");
 
         dotAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 81, 40);
@@ -28,7 +33,6 @@ public class PacManProgressBarSettingsComponent {
         dotAnimationSpeedSlider.setPaintLabels(true);
         dotAnimationSpeedSlider.setLabelTable(getLabelTable(dotAnimationSpeedSlider.getMinimum(), dotAnimationSpeedSlider.getMaximum()));
 
-
         JLabel dotAnimationLabel = new JLabel("Dot speed:");
         dotAnimationLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
@@ -37,6 +41,7 @@ public class PacManProgressBarSettingsComponent {
         dotAnimationPanel.add(dotAnimationLabel);
         dotAnimationPanel.add(dotAnimationSpeedSlider);
 
+        // pacMan Speed settings +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         pacManAnimationSpeedSlider = new JSlider(JSlider.HORIZONTAL, 1, 81, 40);
         pacManAnimationSpeedSlider.setMajorTickSpacing(40);
         pacManAnimationSpeedSlider.setMinorTickSpacing(10);
@@ -52,6 +57,27 @@ public class PacManProgressBarSettingsComponent {
         pacManAnimationPanel.add(pacManAnimationLabel);
         pacManAnimationPanel.add(pacManAnimationSpeedSlider);
 
+        // pacman style +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+        JLabel pacManStyleLabel = new JLabel("PacMan Style:");
+        pacManStyleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        originalPacMan = new JRadioButton("Original PacMan");
+        missPacMan = new JRadioButton("Miss PacMan");
+        ninjaPacMan = new JRadioButton("Ninja PacMan");
+
+        ButtonGroup pacManStyleGroup = new ButtonGroup();
+        pacManStyleGroup.add(originalPacMan);
+        pacManStyleGroup.add(missPacMan);
+        pacManStyleGroup.add(ninjaPacMan);
+
+        pacManStylePanel = new JPanel();
+        pacManStylePanel.setLayout(new BoxLayout(pacManStylePanel, BoxLayout.Y_AXIS));
+        pacManStylePanel.add(pacManStyleLabel);
+        pacManStylePanel.add(originalPacMan);
+        pacManStylePanel.add(missPacMan);
+        pacManStylePanel.add(ninjaPacMan);
+
+        // mode settings +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
         overFlowModeOption = new JRadioButton("Overflow Mode");
         gameSimulationModeOption = new JRadioButton("GameSimulation Mode");
 
@@ -92,9 +118,9 @@ public class PacManProgressBarSettingsComponent {
         gbc.gridheight = 3;
         gbc.fill = GridBagConstraints.VERTICAL;
         gbc.insets = JBUI.insetsTop(10);
-        JSeparator separator = new JSeparator(JSeparator.VERTICAL);
-        separator.setForeground(settingsPanel.getForeground());
-        settingsPanel.add(separator, gbc);
+        JSeparator separator1 = new JSeparator(JSeparator.VERTICAL);
+        separator1.setForeground(settingsPanel.getForeground());
+        settingsPanel.add(separator1, gbc);
 
         gbc.gridx = 2;
         gbc.gridy = 0;
@@ -112,6 +138,28 @@ public class PacManProgressBarSettingsComponent {
 
         gbc.gridy++;
         settingsPanel.add(pacManAnimationPanel, gbc);
+
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.gridheight = 3;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        gbc.insets = JBUI.insetsTop(10);
+        JSeparator separator2 = new JSeparator(JSeparator.VERTICAL);
+        separator2.setForeground(settingsPanel.getForeground());
+        settingsPanel.add(separator2, gbc);
+
+        gbc.gridx = 4;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.insets = JBUI.insets(10, 20, 10, 10);
+
+        JLabel styleHeader = new JLabel("Style");
+        styleHeader.setFont(new Font("Arial", Font.BOLD, 18));
+        gbc.anchor = GridBagConstraints.NORTH;
+        settingsPanel.add(styleHeader, gbc);
+
+        gbc.gridy++;
+        settingsPanel.add(pacManStylePanel, gbc);
 
         contentPanel = new JPanel();
         contentPanel.add(settingsPanel);
@@ -177,6 +225,21 @@ public class PacManProgressBarSettingsComponent {
             default:
                 overFlowModeOption.setSelected(true);
         }
+    }
+
+    public void setPacManStyle(int style){
+        switch (style){
+            case 0: originalPacMan.setSelected(true); break;
+            case 1: missPacMan.setSelected(true);break;
+            case 2: ninjaPacMan.setSelected(true);break;
+        }
+    }
+
+    public int getPacManStyle(){
+        if(originalPacMan.isSelected()) return 0;
+        if(missPacMan.isSelected()) return 1;
+        if(ninjaPacMan.isSelected()) return 2;
+        return 0;
     }
 
     private static Hashtable<Integer, JLabel> getLabelTable(int min, int max) {

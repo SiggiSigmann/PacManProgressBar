@@ -48,7 +48,9 @@ public class PacManProgressBarState implements PersistentStateComponent<PacManPr
         this.pacManAnimationSpeed = animationSpeed;
     }
 
-
+    private int pacManStyle= 0;
+    public int getPacManStyle() {return pacManStyle;}
+    public void setPacManStyle(int pacManStyle) {this.pacManStyle = pacManStyle;}
 
 
     public static PacManProgressBarState getInstance() {
@@ -61,6 +63,7 @@ public class PacManProgressBarState implements PersistentStateComponent<PacManPr
         defaultSettings.setDotAnimationSpeed(50);
         defaultSettings.setIndeterminateMode(0);
         defaultSettings.setPacManAnimationSpeed(20);
+        defaultSettings.setPacManStyle(0);
         return defaultSettings;
     }
 

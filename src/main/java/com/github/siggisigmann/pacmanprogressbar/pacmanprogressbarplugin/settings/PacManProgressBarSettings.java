@@ -30,8 +30,9 @@ public class PacManProgressBarSettings implements Configurable {
         boolean dotAnimationSpeedChange = oldSettings.getDotAnimationSpeed() != settingsComponent.getDotAnimationSpeed();
         boolean pacManAnimationSpeedChange = oldSettings.getPacManAnimationSpeed() != settingsComponent.getPacManAnimationSpeed();
         boolean indeterminateModeChange = oldSettings.getIndeterminateMode() != settingsComponent.getIndeterminateMode();
+        boolean pacManVersionChanged = oldSettings.getPacManStyle() != settingsComponent.getPacManStyle();
 
-        return isAnimatedDotsChanged || dotAnimationSpeedChange || pacManAnimationSpeedChange || indeterminateModeChange ;
+        return isAnimatedDotsChanged || dotAnimationSpeedChange || pacManAnimationSpeedChange || indeterminateModeChange || pacManVersionChanged;
     }
 
     @Override
@@ -42,6 +43,7 @@ public class PacManProgressBarSettings implements Configurable {
         settings.setDotAnimationSpeed(settingsComponent.getDotAnimationSpeed());
         settings.setPacManAnimationSpeed(settingsComponent.getPacManAnimationSpeed());
         settings.setIndeterminateMode(settingsComponent.getIndeterminateMode());
+        settings.setPacManStyle(settingsComponent.getPacManStyle());
     }
 
     @Override
@@ -52,5 +54,6 @@ public class PacManProgressBarSettings implements Configurable {
         settingsComponent.setDotAnimationSpeed(settings.getDotAnimationSpeed());
         settingsComponent.setPacManAnimationSpeed(settings.getPacManAnimationSpeed());
         settingsComponent.setIndeterminateMode(settings.getIndeterminateMode());
+        settingsComponent.setPacManStyle(settings.getPacManStyle());
     }
 }

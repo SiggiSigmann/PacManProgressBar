@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.github.siggisigmann.PacManProgressBar.PacManProgressBar</id>
   <name>PacManProgressBar</name>
-  <version>1.2</version>
+  <version>1.3</version>
   <vendor email="tobias.sigmann@gmail.com" url="https://github.com/SiggiSigmann">Tobias Sigmann</vendor>
   <idea-version since-build="213.*"/>
   <description>
@@ -28,6 +28,10 @@
         cherry, the ghosts turn blue, symbolizing a momentary reversal of roles. Now, the ghosts are chased by Pac-Man until they reach the start point, at
         which they revert to their default color, resuming their pursuit of Pac-Man.
       </p>
+      <h2>PacMan Styles</h2>
+      <p>
+        Choose from three exciting Pac-Man styles: the classic Original Pac-Man, the adventurous Ms. Pac-Man, or the stealthy Pac-Man Ninja.
+      </p>
       <p>
         With PacManProgressBar, your progress is not only tracked but also transformed into an engaging and visually stimulating experience. Embrace a new
         level of productivity and enjoyment in your coding endeavors with this unique IntelliJ plugin.
@@ -39,6 +43,7 @@
         <ul>
           <li>1.1 Initial</li>
           <li>1.2 Make the slider in settings smoother, and ensure that the determinate starts showing a Pacman icon now</li>
+          <li>1.3 Add different PacMan styles: Miss PacMan, Ninja PacMan
         </ul>
       ]]>
   </change-notes>
