@@ -52,20 +52,23 @@ public class PacManProgressBarState implements PersistentStateComponent<PacManPr
     public int getPacManStyle() {return pacManStyle;}
     public void setPacManStyle(int pacManStyle) {this.pacManStyle = pacManStyle;}
 
+    private boolean randomPacman = false;
+    public boolean isRandomPacman() {return randomPacman;}
+    public void setRandomPacman(boolean randomPacman) {this.randomPacman = randomPacman;}
+
+    private int fruitsStyle= 0;
+    public int getFruitsStyle() {return fruitsStyle;}
+    public void setFruitsStyle(int fruitsStyle) {this.fruitsStyle = fruitsStyle;}
+
+    private boolean randomFruits = false;
+    public boolean isRandomFruits() {return randomFruits;}
+    public void setRandomFruits(boolean randomFruits) {this.randomFruits = randomFruits;}
+
 
     public static PacManProgressBarState getInstance() {
         return ApplicationManager.getApplication().getService(PacManProgressBarState.class);
     }
 
-    public static PacManProgressBarState getDefault(){
-        PacManProgressBarState defaultSettings = new PacManProgressBarState();
-        defaultSettings.setAnimatedDots(true);
-        defaultSettings.setDotAnimationSpeed(50);
-        defaultSettings.setIndeterminateMode(0);
-        defaultSettings.setPacManAnimationSpeed(20);
-        defaultSettings.setPacManStyle(0);
-        return defaultSettings;
-    }
 
     @Override
     public @Nullable PacManProgressBarState getState() {

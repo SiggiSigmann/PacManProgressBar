@@ -1,5 +1,6 @@
 package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.bar;
 
+import com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.resourceManager.PacManIcons;
 import com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.settings.PacManProgressBarState;
 import com.intellij.openapi.ui.GraphicsConfig;
 import com.intellij.util.ui.GraphicsUtil;
@@ -17,6 +18,7 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.geom.RoundRectangle2D;
+import java.util.Random;
 
 public class PacManProgressBar extends BasicProgressBarUI {
 
@@ -28,8 +30,20 @@ public class PacManProgressBar extends BasicProgressBarUI {
     private static final int HEIGHT = 20;
     private static final int IMAGE_LENGTH = 95;
 
-    private final PacManIcons icons = new PacManIcons();
-    private final int pacManWidth = icons.getPacManLeft(0).getIconWidth();
+    private final PacManIcons icons;
+    private final int pacManWidth;
+
+    private final int randomPacMan;
+    private final int randomFruit;
+
+    public PacManProgressBar(){
+        icons = new PacManIcons();
+        pacManWidth = icons.getPacMan().getImage(0).getIconWidth();
+
+        final Random rg = new Random();
+        randomPacMan = rg.nextInt(icons.getPacMan().getSize());
+        randomFruit = rg.nextInt(icons.getFruits().getSize());
+    }
 
     @Override
     public Dimension getPreferredSize(JComponent c) {
@@ -121,15 +135,20 @@ public class PacManProgressBar extends BasicProgressBarUI {
 
         if(direction){
             direction = !(offset >= (width-IMAGE_LENGTH));
-            ImageIcon cherry = icons.getCherry();
+            ImageIcon cherry;
+            if(PacManProgressBarState.getInstance().isRandomPacman()){
+                cherry = icons.getFruits().getImage(randomFruit);
+            }else{
+                cherry = icons.getFruits().getImage(PacManProgressBarState.getInstance().getFruitsStyle());
+            }
             cherry.paintIcon(progressBar, g2, width - cherry.getIconWidth(), 0);
 
-            drawPacManAndGhosts(g2, offset + IMAGE_LENGTH);
+
         }else{
             direction = (offset <= 0);
-            drawPacManAndDeadGhosts(g2, offset + IMAGE_LENGTH);
         }
 
+        drawPacManAndGhosts(g2, offset + IMAGE_LENGTH, !direction);
     }
 
     @Override
@@ -202,17 +221,23 @@ public class PacManProgressBar extends BasicProgressBarUI {
         g2.fillRoundRect(0, 0, amountFull-10, height, 3,3);
     }
 
-    private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
+    private void drawPacManAndGhosts(Graphics2D g2, int amountFull, boolean direction){
         //draw pacman
-        ImageIcon pacManIcon = icons.getPacManRight(PacManProgressBarState.getInstance().getPacManStyle());
+        ImageIcon pacManIcon;
+        if(PacManProgressBarState.getInstance().isRandomPacman()){
+            pacManIcon = icons.getPacMan().getImage(randomPacMan, direction);
+        }else{
+            pacManIcon = icons.getPacMan().getImage(PacManProgressBarState.getInstance().getPacManStyle(), direction);
+        }
+
         pacManIcon.paintIcon(progressBar, g2, amountFull - pacManWidth, 0);
 
         //draw ghosts
         ImageIcon[] ghosts = new ImageIcon[4];
-        ghosts[0] = icons.getPinkGhost();
-        ghosts[1] = icons.getBlueGhost();
-        ghosts[2] = icons.getRedGhost();
-        ghosts[3] = icons.getOrangeGhost();
+        ghosts[0] = direction ? icons.getDead1Ghost() : icons.getPinkGhost();
+        ghosts[1] = direction ? icons.getDead2Ghost() : icons.getBlueGhost();
+        ghosts[2] = direction ? icons.getDead3Ghost() : icons.getRedGhost();
+        ghosts[3] = direction ? icons.getDead4Ghost() : icons.getOrangeGhost();
 
         int offset = amountFull - pacManIcon.getIconWidth() - 5;
         for(ImageIcon ghost: ghosts){
@@ -221,23 +246,8 @@ public class PacManProgressBar extends BasicProgressBarUI {
         }
     }
 
-    private void drawPacManAndDeadGhosts(Graphics2D g2, int amountFull){
-        //draw pacman
-        ImageIcon pacManIcon = icons.getPacManLeft(PacManProgressBarState.getInstance().getPacManStyle());
-        pacManIcon.paintIcon(progressBar, g2, amountFull - pacManWidth, 0);
-
-        //draw ghosts
-        ImageIcon[] ghosts = new ImageIcon[4];
-        ghosts[0] = icons.getDead1Ghost();
-        ghosts[1] = icons.getDead2Ghost();
-        ghosts[2] = icons.getDead3Ghost();
-        ghosts[3] = icons.getDead4Ghost();
-
-        int offset = amountFull - pacManIcon.getIconWidth() - 5;
-        for(ImageIcon ghost: ghosts){
-            offset -= ghost.getIconWidth()-2;
-            ghost.paintIcon(progressBar, g2, offset, 0);
-        }
+    private void drawPacManAndGhosts(Graphics2D g2, int amountFull){
+        drawPacManAndGhosts(g2, amountFull, false);
     }
 
     @Override

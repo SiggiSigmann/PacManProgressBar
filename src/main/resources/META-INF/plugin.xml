@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>com.github.siggisigmann.PacManProgressBar.PacManProgressBar</id>
   <name>PacManProgressBar</name>
-  <version>1.3</version>
+  <version>1.4</version>
   <vendor email="tobias.sigmann@gmail.com" url="https://github.com/SiggiSigmann">Tobias Sigmann</vendor>
   <idea-version since-build="213.*"/>
   <description>
@@ -43,13 +43,14 @@
         <ul>
           <li>1.1 Initial</li>
           <li>1.2 Make the slider in settings smoother, and ensure that the determinate starts showing a Pacman icon now</li>
-          <li>1.3 Add different PacMan styles: Miss PacMan, Ninja PacMan
+          <li>1.3 Add different PacMan styles: Miss PacMan, Ninja PacMan</li>
+          <li>1.4 Add 2 new PacMan styles, different fruits and add options for randomly select a pacman or fruit</li>
         </ul>
       ]]>
   </change-notes>
   <depends>com.intellij.modules.platform</depends>
 
-  <!--<actions>
+  <actions>
     <group id="PacManProgressBarTest.Menu" text="ProgressbarTest" description="Show progressbar for testing purpose">
       <add-to-group group-id="MainMenu" anchor="last" />
       <action
@@ -65,7 +66,7 @@
         description="Show indeterminate Progressbar 5 Seconds"
       />
     </group>
-  </actions>-->
+  </actions>
 
   <extensions defaultExtensionNs="com.intellij">
     <applicationService

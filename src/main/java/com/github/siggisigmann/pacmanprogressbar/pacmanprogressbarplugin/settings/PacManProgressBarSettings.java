@@ -31,12 +31,16 @@ public class PacManProgressBarSettings implements Configurable {
         boolean pacManAnimationSpeedChange = oldSettings.getPacManAnimationSpeed() != settingsComponent.getPacManAnimationSpeed();
         boolean indeterminateModeChange = oldSettings.getIndeterminateMode() != settingsComponent.getIndeterminateMode();
         boolean pacManVersionChanged = oldSettings.getPacManStyle() != settingsComponent.getPacManStyle();
+        boolean randomPacManChanged = oldSettings.isRandomPacman() != settingsComponent.getRandomPacMan();
+        boolean fruitVersionChanged= oldSettings.getFruitsStyle() != settingsComponent.getFruitStyle();
+        boolean randomFruitChanged = oldSettings.isRandomFruits() != settingsComponent.getRandomFruit();
 
-        return isAnimatedDotsChanged || dotAnimationSpeedChange || pacManAnimationSpeedChange || indeterminateModeChange || pacManVersionChanged;
+        return isAnimatedDotsChanged || dotAnimationSpeedChange || pacManAnimationSpeedChange || indeterminateModeChange ||
+                pacManVersionChanged || randomPacManChanged || fruitVersionChanged || randomFruitChanged;
     }
 
     @Override
-    public void apply() throws ConfigurationException {
+    public void apply() {
         PacManProgressBarState settings = PacManProgressBarState.getInstance();
 
         settings.setAnimatedDots(settingsComponent.isAnimatedDots());
@@ -44,6 +48,9 @@ public class PacManProgressBarSettings implements Configurable {
         settings.setPacManAnimationSpeed(settingsComponent.getPacManAnimationSpeed());
         settings.setIndeterminateMode(settingsComponent.getIndeterminateMode());
         settings.setPacManStyle(settingsComponent.getPacManStyle());
+        settings.setRandomPacman(settingsComponent.getRandomPacMan());
+        settings.setFruitsStyle(settingsComponent.getFruitStyle());
+        settings.setRandomFruits(settingsComponent.getRandomFruit());
     }
 
     @Override
@@ -55,5 +62,8 @@ public class PacManProgressBarSettings implements Configurable {
         settingsComponent.setPacManAnimationSpeed(settings.getPacManAnimationSpeed());
         settingsComponent.setIndeterminateMode(settings.getIndeterminateMode());
         settingsComponent.setPacManStyle(settings.getPacManStyle());
+        settingsComponent.setRandomPacMan(settings.isRandomPacman());
+        settingsComponent.setFruitStyle(settings.getFruitsStyle());
+        settingsComponent.setRandomFruit(settings.isRandomFruits());
     }
 }

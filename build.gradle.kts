@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.siggisigmann.PacManProgressBar"
-version = "1.3"
+version = "1.4"
 
 repositories {
   mavenCentral()
@@ -31,8 +31,8 @@ tasks {
   }
 
   patchPluginXml {
-    sinceBuild.set("231")
-    untilBuild.set("241.*")
+    sinceBuild.set("222")
+    untilBuild.set("242.*")
   }
 
   signPlugin {
