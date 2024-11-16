@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.github.siggisigmann.PacManProgressBar"
-version = "1.4"
+version = "1.5"
 
 repositories {
   mavenCentral()
@@ -14,7 +14,7 @@ repositories {
 // Configure Gradle IntelliJ Plugin
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-  version.set("2023.1.5")
+  version.set("2024.3")
   type.set("IC") // Target IDE Platform
 
   plugins.set(listOf(/* Plugin Dependencies */))
@@ -23,16 +23,15 @@ intellij {
 tasks {
   // Set the JVM compatibility versions
   withType<JavaCompile> {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = "21"
+    targetCompatibility = "21"
   }
   withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
+    kotlinOptions.jvmTarget = "21"
   }
 
   patchPluginXml {
     sinceBuild.set("222")
-    untilBuild.set("242.*")
   }
 
   signPlugin {

@@ -74,7 +74,7 @@ public class PacManProgressBarSettingsComponent {
 
         pacManStyleGroup = new ButtonGroup();
         for(int i = 0; i < icons.getFruits().getSize(); i++){
-            JRadioButton pacManStyle = new JRadioButton(icons.getFruits().getName(i));
+            JRadioButton pacManStyle = new JRadioButton(icons.getPacMan().getName(i));
 
             pacManStyles.add(pacManStyle);
             pacManStyleGroup.add(pacManStyle);
