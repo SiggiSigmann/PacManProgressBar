@@ -6,9 +6,9 @@ import java.util.ArrayList;
 public class StyleManager {
 
     private final ArrayList<NamedImage> imagesRight;
-    private final ArrayList<ImageIcon> imagesLeft;
+    private final ArrayList<Animation> imagesLeft;
 
-    public StyleManager(ArrayList<NamedImage> imagesRight, ArrayList<ImageIcon> imagesLeft){
+    public StyleManager(ArrayList<NamedImage> imagesRight, ArrayList<Animation> imagesLeft){
         this.imagesLeft = new ArrayList<>(imagesLeft);
         this.imagesRight = new ArrayList<>(imagesRight);
     }
@@ -23,7 +23,7 @@ public class StyleManager {
         return isStyleOk ? style : 0;
     }
 
-    public ImageIcon getImage(int style, boolean direction){
+    public Animation getImage(int style, boolean direction){
         final int correctedIndex = fixIndex(style);
 
         if(!direction || imagesLeft.isEmpty()){
@@ -31,10 +31,6 @@ public class StyleManager {
         }else{
             return imagesLeft.get(correctedIndex);
         }
-    }
-
-    public ImageIcon getImage(int style){
-        return this.getImage(style, false);
     }
 
     public String getName(int style){

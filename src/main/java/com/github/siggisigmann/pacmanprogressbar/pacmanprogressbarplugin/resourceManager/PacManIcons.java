@@ -1,6 +1,5 @@
 package com.github.siggisigmann.pacmanprogressbar.pacmanprogressbarplugin.resourceManager;
 
-import javax.swing.*;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -8,64 +7,62 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class PacManIcons {
-    private final ImageIcon blueGhost;
-    private final ImageIcon orangeGhost;
-    private final ImageIcon pinkGhost;
-    private final ImageIcon redGhost;
+    private final Animation blueGhost;
+    private final Animation orangeGhost;
+    private final Animation pinkGhost;
+    private final Animation redGhost;
 
-    private final ImageIcon dead1Ghost;
-    private final ImageIcon dead2Ghost;
-    private final ImageIcon dead3Ghost;
-    private final ImageIcon dead4Ghost;
+    private final Animation dead1Ghost;
+    private final Animation dead2Ghost;
+    private final Animation dead3Ghost;
+    private final Animation dead4Ghost;
 
-
-    //pag mans
+    //pacmans
     private final StyleManager pacManStyle;
 
-    private final ImageIcon pacManLeft;
-    private final ImageIcon pacManRight;
-    private final ImageIcon missPacManLeft;
-    private final ImageIcon missPacManRight;
-    private final ImageIcon ninjaPacManLeft;
-    private final ImageIcon ninjaPacManRight;
-    private final ImageIcon pizzaPacManLeft;
-    private final ImageIcon pizzaPacManRight;
-    private final ImageIcon cowBoyPacManLeft;
-    private final ImageIcon cowBoyPacManRight;
+    private final Animation pacManLeft;
+    private final Animation pacManRight;
+    private final Animation missPacManLeft;
+    private final Animation missPacManRight;
+    private final Animation ninjaPacManLeft;
+    private final Animation ninjaPacManRight;
+    private final Animation pizzaPacManLeft;
+    private final Animation pizzaPacManRight;
+    private final Animation cowBoyPacManLeft;
+    private final Animation cowBoyPacManRight;
 
     //fruits
     private final StyleManager fruitStyle;
 
-    private final ImageIcon cherry;
-    private final ImageIcon cake;
-    private final ImageIcon strawberry;
-    private final ImageIcon banana;
-
+    private final Animation cherry;
+    private final Animation cake;
+    private final Animation strawberry;
+    private final Animation banana;
 
     public PacManIcons(){
         //ghosts
-        blueGhost = new ImageIcon(cleanURL("/ghosts/Blue.gif"));
-        orangeGhost = new ImageIcon(cleanURL("/ghosts/Orange.gif"));
-        pinkGhost = new ImageIcon(cleanURL("/ghosts/Pink.gif"));
-        redGhost = new ImageIcon(cleanURL("/ghosts/Red.gif"));
+        blueGhost = new Animation("/ghosts/Blue", 13);
+        orangeGhost = new Animation("/ghosts/Orange", 13);
+        pinkGhost = new Animation("/ghosts/Pink", 13);
+        redGhost = new Animation("/ghosts/Red", 13);
 
         //ghosts dead
-        dead1Ghost = new ImageIcon(cleanURL("/ghosts/Dead1.gif"));
-        dead2Ghost = new ImageIcon(cleanURL("/ghosts/Dead2.gif"));
-        dead3Ghost = new ImageIcon(cleanURL("/ghosts/Dead3.gif"));
-        dead4Ghost = new ImageIcon(cleanURL("/ghosts/Dead4.gif"));
+        dead1Ghost = new Animation("/ghosts/Dead1", 13);
+        dead2Ghost = new Animation("/ghosts/Dead2", 13);
+        dead3Ghost = new Animation("/ghosts/Dead3", 13);
+        dead4Ghost = new Animation("/ghosts/Dead4", 13);
 
         //PagMan
-        pacManLeft = new ImageIcon(cleanURL("/pacMan/PacManLeft.gif"));
-        pacManRight = new ImageIcon(cleanURL("/pacMan/PacManRight.gif"));
-        missPacManLeft = new ImageIcon(cleanURL("/pacMan/MissPacManLeft.gif"));
-        missPacManRight = new ImageIcon(cleanURL("/pacMan/MissPacManRight.gif"));
-        ninjaPacManLeft = new ImageIcon(cleanURL("/pacMan/NinjaPacManLeft.gif"));
-        ninjaPacManRight = new ImageIcon(cleanURL("/pacMan/NinjaPacManRight.gif"));
-        pizzaPacManLeft = new ImageIcon(cleanURL("/pacMan/PizzaManLeft.gif"));
-        pizzaPacManRight = new ImageIcon(cleanURL("/pacMan/PizzaManRight.gif"));
-        cowBoyPacManLeft = new ImageIcon(cleanURL("/pacMan/CowBoyLeft.gif"));
-        cowBoyPacManRight = new ImageIcon(cleanURL("/pacMan/CowBoyRight.gif"));
+        pacManLeft = new Animation("/pacMan/PacManLeft", 7);
+        pacManRight = new Animation("/pacMan/PacManRight", 7);
+        missPacManLeft = new Animation("/pacMan/MissPacManLeft", 7);
+        missPacManRight = new Animation("/pacMan/MissPacManRight", 7);
+        ninjaPacManLeft = new Animation("/pacMan/NinjaPacManLeft", 7);
+        ninjaPacManRight = new Animation("/pacMan/NinjaPacManRight", 7);
+        pizzaPacManLeft = new Animation("/pacMan/PizzaManLeft", 7);
+        pizzaPacManRight = new Animation("/pacMan/PizzaManRight", 7);
+        cowBoyPacManLeft = new Animation("/pacMan/CowBoyLeft", 7);
+        cowBoyPacManRight = new Animation("/pacMan/CowBoyRight", 7);
         ArrayList<NamedImage> rightPacMans = new ArrayList<>(Arrays.asList(
                 new NamedImage("Original PacMan",pacManRight),
                 new NamedImage("Miss PacMan", missPacManRight),
@@ -73,14 +70,14 @@ public class PacManIcons {
                 new NamedImage("Pizza PacMan", pizzaPacManRight),
                 new NamedImage("CowBoy PacMan", cowBoyPacManRight)
         ));
-        ArrayList<ImageIcon> leftPacMans = new ArrayList<>(Arrays.asList(pacManLeft, missPacManLeft, ninjaPacManLeft, pizzaPacManLeft, cowBoyPacManLeft));
+        ArrayList<Animation> leftPacMans = new ArrayList<>(Arrays.asList(pacManLeft, missPacManLeft, ninjaPacManLeft, pizzaPacManLeft, cowBoyPacManLeft));
         pacManStyle = new StyleManager(rightPacMans, leftPacMans);
 
         //fruits
-        cherry = new ImageIcon(cleanURL("/fruits/Cherry.gif"));
-        strawberry = new ImageIcon(cleanURL("/fruits/Strawberry.gif"));
-        cake = new ImageIcon(cleanURL("/fruits/Cake.gif"));
-        banana = new ImageIcon(cleanURL("/fruits/banana.gif"));
+        cherry = new Animation("/fruits/Cherry", 1);
+        strawberry = new Animation("/fruits/Strawberry", 1);
+        cake = new Animation("/fruits/Cake", 1);
+        banana = new Animation("/fruits/banana", 1);
         ArrayList<NamedImage> fritsList = new ArrayList<>(Arrays.asList(
                 new NamedImage("Cherry", cherry),
                 new NamedImage("Strawberry", strawberry),
@@ -92,37 +89,37 @@ public class PacManIcons {
 
 
     //ghosts
-    public ImageIcon getBlueGhost(){
+    public Animation getBlueGhost(){
         return blueGhost;
     }
 
-    public ImageIcon getOrangeGhost(){
+    public Animation getOrangeGhost(){
         return orangeGhost;
     }
 
-    public ImageIcon getPinkGhost(){
+    public Animation getPinkGhost(){
         return pinkGhost;
     }
 
-    public ImageIcon getRedGhost(){
+    public Animation getRedGhost(){
         return redGhost;
     }
 
 
     //ghosts dead
-    public ImageIcon getDead1Ghost(){
+    public Animation getDead1Ghost(){
         return dead1Ghost;
     }
 
-    public ImageIcon getDead2Ghost(){
+    public Animation getDead2Ghost(){
         return dead2Ghost;
     }
 
-    public ImageIcon getDead3Ghost(){
+    public Animation getDead3Ghost(){
         return dead3Ghost;
     }
 
-    public ImageIcon getDead4Ghost(){
+    public Animation getDead4Ghost(){
         return dead4Ghost;
     }
 
