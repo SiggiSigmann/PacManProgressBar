@@ -1,7 +1,6 @@
 plugins {
   id("java")
-  id("org.jetbrains.kotlin.jvm") version "1.9.21"
-  id("org.jetbrains.intellij") version "1.16.1"
+  id("org.jetbrains.intellij.platform") version "2.5.0"
 }
 
 group = "com.github.siggisigmann.PacManProgressBar"
@@ -9,15 +8,27 @@ version = "1.6"
 
 repositories {
   mavenCentral()
+  intellijPlatform {
+    defaultRepositories()
+  }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-  version.set("2024.3")
-  type.set("IC") // Target IDE Platform
+dependencies {
+  intellijPlatform {
+    create("IC", "2025.1")
+    testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
 
-  plugins.set(listOf(/* Plugin Dependencies */))
+    // Add necessary plugin dependencies for compilation here, example:
+    // bundledPlugin("com.intellij.java")
+  }
+}
+
+intellijPlatform {
+  pluginConfiguration {
+    ideaVersion {
+      sinceBuild = "242"
+    }
+  }
 }
 
 tasks {
@@ -25,22 +36,5 @@ tasks {
   withType<JavaCompile> {
     sourceCompatibility = "21"
     targetCompatibility = "21"
-  }
-  withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "21"
-  }
-
-  patchPluginXml {
-    sinceBuild.set("222")
-  }
-
-  signPlugin {
-    certificateChain.set(System.getenv("CERTIFICATE_CHAIN"))
-    privateKey.set(System.getenv("PRIVATE_KEY"))
-    password.set(System.getenv("PRIVATE_KEY_PASSWORD"))
-  }
-
-  publishPlugin {
-    token.set(System.getenv("PUBLISH_TOKEN"))
   }
 }
